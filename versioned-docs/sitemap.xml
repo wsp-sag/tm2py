@@ -21,6 +21,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://bayareametro.github.io/tm2py/versioned-docs/contributing/development/</loc>
+         <lastmod>2022-05-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://bayareametro.github.io/tm2py/versioned-docs/contributing/documentation/</loc>
          <lastmod>2022-05-03</lastmod>
          <changefreq>daily</changefreq>
