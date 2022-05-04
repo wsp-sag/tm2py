@@ -242,11 +242,15 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../starting/" class="md-tabs__link">
-      Starting Out
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/development/" class="md-tabs__link">
+        Contributing
+      </a>
+    </li>
+  
 
       
         
@@ -258,8 +262,8 @@
   
   
     <li class="md-tabs__item">
-      <a href="../contributing/development/" class="md-tabs__link">
-        Contributing
+      <a href="../examples/" class="md-tabs__link">
+        Examples
       </a>
     </li>
   
@@ -450,6 +454,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
   
 </li>
       
@@ -1405,37 +1416,28 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../starting/" class="md-nav__link">
-        Starting Out
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
+        
+          
+        
+          
+        
       
-        <label class="md-nav__link" for="__nav_5">
+      
+        <label class="md-nav__link" for="__nav_4">
           Contributing
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Contributing" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Contributing
         </label>
@@ -1463,6 +1465,102 @@
     <li class="md-nav__item">
       <a href="../contributing/documentation/" class="md-nav__link">
         Documentation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../examples/">Examples</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/configuration/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/restart_model/" class="md-nav__link">
+        Restart Model Run
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/run_model/" class="md-nav__link">
+        Run model
       </a>
     </li>
   
@@ -1586,6 +1684,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
   
 </li>
       
@@ -2523,7 +2628,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/bayareametro/tm2py/edit/main/docs/api.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bayareametro/tm2py/edit/master/docs/api.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
@@ -2638,7 +2743,9 @@ component: current running (or last started) Component object</p>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">config_file</span> <span class="o">=</span> <span class="p">[</span><span class="n">config_file</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">run_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">config_file</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">config_file</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">run_dir</span><span class="p">):</span>
+            <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">run_dir</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run_dir</span> <span class="o">=</span> <span class="n">run_dir</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="o">.</span><span class="n">load_toml</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
@@ -2905,7 +3012,9 @@ config file is located.</p></td>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">config_file</span> <span class="o">=</span> <span class="p">[</span><span class="n">config_file</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">run_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">config_file</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">config_file</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">run_dir</span><span class="p">):</span>
+        <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">run_dir</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_run_dir</span> <span class="o">=</span> <span class="n">run_dir</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="o">.</span><span class="n">load_toml</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
@@ -3015,6 +3124,7 @@ config file is located.</p></td>
 
   </div>
 
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link"> ¶</a></h2>
 <h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link"> ¶</a></h2>
 <h3 id="base-component">Base Component<a class="headerlink" href="#base-component" title="Permanent link"> ¶</a></h3>
 
@@ -4996,7 +5106,8 @@ HighwayAssignment            (<a class="autorefs autorefs-internal" title="tm2py
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run highway assignment.&quot;&quot;&quot;</span>
         <span class="n">demand</span> <span class="o">=</span> <span class="n">PrepareHighwayDemand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
-        <span class="n">demand</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">iteration</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">demand</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period_names</span><span class="p">():</span>
             <span class="n">scenario</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_emme_scenario</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">emme</span><span class="o">.</span><span class="n">highway_database_path</span><span class="p">,</span> <span class="n">time</span>
@@ -5286,7 +5397,8 @@ HighwayAssignment            (<a class="autorefs autorefs-internal" title="tm2py
 <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Run highway assignment.&quot;&quot;&quot;</span>
     <span class="n">demand</span> <span class="o">=</span> <span class="n">PrepareHighwayDemand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="p">)</span>
-    <span class="n">demand</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">iteration</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">demand</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period_names</span><span class="p">():</span>
         <span class="n">scenario</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_emme_scenario</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">emme</span><span class="o">.</span><span class="n">highway_database_path</span><span class="p">,</span> <span class="n">time</span>
@@ -7566,7 +7678,7 @@ EmmeManager        </code>
   <tbody>
       <tr>
         <td><code>emmebank</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;139637683111632&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140551803999808&#39;&gt;</code></td>
         <td><p>the Emmebank object to change the dimensions</p></td>
         <td><em>required</em></td>
       </tr>
@@ -7675,13 +7787,13 @@ EmmeManager        </code>
       </tr>
       <tr>
         <td><code>src</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139637683139728&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139637683151728&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140551804027904&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140551804039904&#39;&gt;]</code></td>
         <td><p>source Emme scenario or network to load values from</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>dst</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139637683139728&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139637683151728&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140551804027904&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140551804039904&#39;&gt;]</code></td>
         <td><p>destination Emme scenario or network to save values to</p></td>
         <td><em>required</em></td>
       </tr>
@@ -7800,7 +7912,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139637683223952&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140551804116224&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -7873,7 +7985,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;139637683111632&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140551803999808&#39;&gt;</code></td>
       <td><p>Emmebank object, see Emme API Reference, Database section for details.</p></td>
     </tr>
   </tbody>
@@ -7933,7 +8045,7 @@ and network.set_attribute_values.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139637683139728&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140551804027904&#39;&gt;</code></td>
         <td><p>Emme scenario object, see Emme API reference</p></td>
         <td><em>required</em></td>
       </tr>
@@ -7955,7 +8067,7 @@ and network.set_attribute_values.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139637683151728&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140551804039904&#39;&gt;</code></td>
       <td><p>Emme Network object, see Emme API Reference, Network section for details.</p></td>
     </tr>
   </tbody>
@@ -8194,7 +8306,7 @@ first.</p>
   <tbody>
       <tr>
         <td><code>emme_project</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139637683223952&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140551804116224&#39;&gt;</code></td>
         <td><p>open &lsquo;Emme Desktop&rsquo; application (inro.emme.desktop.app)</p></td>
         <td><code>None</code></td>
       </tr>
@@ -8210,7 +8322,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;139637683179824&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;140551804068000&#39;&gt;</code></td>
       <td><p>Emme Modeller object, see Emme API Reference, Modeller section for details.</p></td>
     </tr>
   </tbody>
@@ -8295,7 +8407,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139637683223952&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140551804116224&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -8372,7 +8484,7 @@ Emme API.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139637683139728&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140551804027904&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -8751,7 +8863,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139637683127728&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140551804015904&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -8826,7 +8938,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139637683127728&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140551804015904&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -9669,7 +9781,7 @@ Supports &ldquo;with&rdquo; statement.</p>
   <tbody>
       <tr>
         <td><code>matrices</code></td>
-        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139637683127728&#39;&gt;, str]]</code></td>
+        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140551804015904&#39;&gt;, str]]</code></td>
         <td><p>list of Emme matrix objects or names / IDs
 of matrices in Emmebank, or dictionary of
 name: Emme matrix object/ Emme matrix ID</p></td>
@@ -9728,7 +9840,7 @@ name: Emme matrix object/ Emme matrix ID</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139637683127728&#39;&gt;]</code></td>
+        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140551804015904&#39;&gt;]</code></td>
         <td><p>Emme matrix object or name / ID of matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -9862,7 +9974,7 @@ aggregation options, and mostly running link expression calculations</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139637683139728&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140551804027904&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -11488,7 +11600,7 @@ to _DEFAULT_EXAMPLE_URL.</p></td>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "content.code.annotate", "content.tabs.link", "navigation.indexes"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
       <script src="../assets/javascripts/bundle.ed9748b7.min.js"></script>

@@ -2,32 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://bayareametro.github.io/tm2py/develop/</loc>
-         <lastmod>2022-05-03</lastmod>
+         <lastmod>2022-05-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/develop/api/</loc>
-         <lastmod>2022-05-03</lastmod>
+         <lastmod>2022-05-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/develop/architecture/</loc>
-         <lastmod>2022-05-03</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://bayareametro.github.io/tm2py/develop/starting/</loc>
-         <lastmod>2022-05-03</lastmod>
+         <lastmod>2022-05-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/develop/contributing/development/</loc>
-         <lastmod>2022-05-03</lastmod>
+         <lastmod>2022-05-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/develop/contributing/documentation/</loc>
-         <lastmod>2022-05-03</lastmod>
+         <lastmod>2022-05-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bayareametro.github.io/tm2py/develop/examples/</loc>
+         <lastmod>2022-05-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bayareametro.github.io/tm2py/develop/examples/configuration/</loc>
+         <lastmod>2022-05-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bayareametro.github.io/tm2py/develop/examples/restart_model/</loc>
+         <lastmod>2022-05-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bayareametro.github.io/tm2py/develop/examples/run_model/</loc>
+         <lastmod>2022-05-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
