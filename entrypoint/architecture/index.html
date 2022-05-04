@@ -242,18 +242,6 @@
   
 
 
-  <li class="md-tabs__item">
-    <a href="../starting/" class="md-tabs__link">
-      Starting Out
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
   
   
   
@@ -274,7 +262,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../examples/Run%20model/" class="md-tabs__link">
+      <a href="../examples/" class="md-tabs__link">
         Examples
       </a>
     </li>
@@ -453,37 +441,28 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../starting/" class="md-nav__link">
-        Starting Out
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
+        
+          
+        
+          
+        
       
-        <label class="md-nav__link" for="__nav_5">
+      
+        <label class="md-nav__link" for="__nav_4">
           Contributing
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="Contributing" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Contributing
         </label>
@@ -534,22 +513,42 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
       
       
       
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
       
-        <label class="md-nav__link" for="__nav_6">
-          Examples
-          <span class="md-nav__icon md-icon"></span>
-        </label>
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../examples/">Examples</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
       
       <nav class="md-nav" aria-label="Examples" data-md-level="1">
-        <label class="md-nav__title" for="__nav_6">
+        <label class="md-nav__title" for="__nav_5">
           <span class="md-nav__icon md-icon"></span>
           Examples
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
           
             
               
@@ -557,7 +556,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/Run%20model/" class="md-nav__link">
+      <a href="../examples/configuration/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/restart_model/" class="md-nav__link">
+        Restart Model Run
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/run_model/" class="md-nav__link">
         Run model
       </a>
     </li>
@@ -651,7 +678,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-  <a href="https://github.com/bayareametro/tm2py/edit/main/docs/architecture.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/bayareametro/tm2py/edit/master/docs/architecture.md" title="Edit this page" class="md-content__button md-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
@@ -659,7 +686,7 @@
 
 <h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link"> ¶</a></h1>
 <h2 id="abstract-component">Abstract Component<a class="headerlink" href="#abstract-component" title="Permanent link"> ¶</a></h2>
-<div class="highlight"><pre><span></span><code>classDiagram
+<div class="mermaid">classDiagram
     class Component{
         +_controller
         +_trace
@@ -668,10 +695,9 @@
         +report_progress()
         +test_component()
         +write_top_sheet()
-    }
-</code></pre></div>
+    }</div>
 <h2 id="controllers">Controllers<a class="headerlink" href="#controllers" title="Permanent link"> ¶</a></h2>
-<div class="highlight"><pre><span></span><code>classDiagram
+<div class="mermaid">classDiagram
     Controller &lt;|-- ModelController
     class Controller{
         _config
@@ -705,17 +731,15 @@
     class Logger{
         +controller
         +log()
-    }
-</code></pre></div>
+    }</div>
 <h2 id="configs">Configs<a class="headerlink" href="#configs" title="Permanent link"> ¶</a></h2>
-<div class="highlight"><pre><span></span><code>classDiagram
+<div class="mermaid">classDiagram
     class Configuration{
         +load()
         +save()
-    }
-</code></pre></div>
+    }</div>
 <h2 id="utils">Utils<a class="headerlink" href="#utils" title="Permanent link"> ¶</a></h2>
-<div class="highlight"><pre><span></span><code>classDiagram
+<div class="mermaid">classDiagram
     class NetworkCalc{
         +_scenario
         +_network_calc
@@ -755,9 +779,10 @@
         +set_data()
         +clear()
     }
-</code></pre></div>
+</div>
 <h2 id="demand">Demand<a class="headerlink" href="#demand" title="Permanent link"> ¶</a></h2>
-<div class="highlight"><pre><span></span><code>classDiagram
+<div class="mermaid">
+classDiagram
     Component -- AirPassenger: how?
     Component -- InternalExternal: how?
     Component -- Truck: how?
@@ -793,10 +818,10 @@
         +_time_of_day()
         +_toll_choice()
         +_export_results()
-    }
-</code></pre></div>
+    }</div>
 <h2 id="assignment">Assignment<a class="headerlink" href="#assignment" title="Permanent link"> ¶</a></h2>
-<div class="highlight"><pre><span></span><code>classDiagram
+<div class="mermaid">
+classDiagram
     Component &lt;|-- HighwayAssignment
     Component &lt;|-- AssignMAZSPDemand
     Component &lt;|-- ActiveModesAssignment
@@ -864,8 +889,7 @@
         +_root_dir
         +_emme_manager
         +_setup()
-    }
-</code></pre></div>
+    }</div>
 
               
             </article>
@@ -895,13 +919,13 @@
       
       
         
-        <a href="../starting/" class="md-footer__link md-footer__link--next" aria-label="Next: Starting Out" rel="next">
+        <a href="../contributing/development/" class="md-footer__link md-footer__link--next" aria-label="Next: Development" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Starting Out
+              Development
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -931,7 +955,7 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "content.code.annotate", "content.tabs.link", "navigation.indexes"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
       <script src="../assets/javascripts/bundle.ed9748b7.min.js"></script>

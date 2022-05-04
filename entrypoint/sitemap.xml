@@ -16,11 +16,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://bayareametro.github.io/tm2py/entrypoint/starting/</loc>
-         <lastmod>2022-05-04</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://bayareametro.github.io/tm2py/entrypoint/contributing/development/</loc>
          <lastmod>2022-05-04</lastmod>
          <changefreq>daily</changefreq>
@@ -31,7 +26,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://bayareametro.github.io/tm2py/entrypoint/examples/Run%20model/</loc>
+         <loc>https://bayareametro.github.io/tm2py/entrypoint/examples/</loc>
+         <lastmod>2022-05-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bayareametro.github.io/tm2py/entrypoint/examples/configuration/</loc>
+         <lastmod>2022-05-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bayareametro.github.io/tm2py/entrypoint/examples/restart_model/</loc>
+         <lastmod>2022-05-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bayareametro.github.io/tm2py/entrypoint/examples/run_model/</loc>
          <lastmod>2022-05-04</lastmod>
          <changefreq>daily</changefreq>
     </url>
