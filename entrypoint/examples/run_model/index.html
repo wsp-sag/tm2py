@@ -1684,10 +1684,9 @@ Licensed under the Apache License, Version 2.0.
 <span class="n">controller</span> <span class="o">=</span> <span class="n">RunController</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;examples&quot;</span><span class="p">,</span> <span class="s2">&quot;scenario_config.toml&quot;</span><span class="p">),</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;examples&quot;</span><span class="p">,</span> <span class="s2">&quot;model_config.toml&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;examples&quot;</span><span class="p">,</span> <span class="s2">&quot;model_config.toml&quot;</span><span class="p">),</span>
     <span class="p">],</span>
-    <span class="n">run_dir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;examples&quot;</span><span class="p">,</span> <span class="s2">&quot;UnionCity&quot;</span><span class="p">)</span>
-    
+    <span class="n">run_dir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;examples&quot;</span><span class="p">,</span> <span class="s2">&quot;UnionCity&quot;</span><span class="p">),</span>
 <span class="p">)</span>
 </pre></div>
 <div id="cell-1" class="clipboard-copy-txt">import os
@@ -1696,10 +1695,9 @@ from tm2py import RunController
 controller = RunController(
     [
         os.path.join("..", "examples", "scenario_config.toml"),
-        os.path.join("..", "examples", "model_config.toml")
+        os.path.join("..", "examples", "model_config.toml"),
     ],
-    run_dir=os.path.join("..", "examples", "UnionCity")
-    
+    run_dir=os.path.join("..", "examples", "UnionCity"),
 )</div>
     
         </div>
@@ -1743,9 +1741,11 @@ controller = RunController(
             </clipboard-copy>
         </div>
             <div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span> <span class="nn">tm2py</span> <span class="kn">import</span> <span class="n">get_example</span>
+
 <span class="n">get_example</span><span class="p">(</span><span class="n">root_dir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
 </pre></div>
 <div id="cell-2" class="clipboard-copy-txt">from tm2py import get_example
+
 get_example(root_dir=os.path.join("..", ""))</div>
     
         </div>
