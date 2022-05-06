@@ -669,6 +669,7 @@
 <h2 id="linting">Linting<a class="headerlink" href="#linting" title="Permanent link"> ¶</a></h2>
 <p>Documentation should be linted before deployment:</p>
 <div class="highlight"><pre><span></span><code>pre-commit run --all-files
+pre-commit run --hook-stage manual --all-files
 </code></pre></div>
 <h2 id="deploying-documentation">Deploying documentation<a class="headerlink" href="#deploying-documentation" title="Permanent link"> ¶</a></h2>
 <p>Documentation is built and deployed to [http://bayareametro.github.io/tm2py] using the <a href="https://github.com/jimporter/mike"><code>mike</code></a> package and Github Actions configured in <code>.github/workflows/</code> for each &ldquo;ref&rdquo; (i.e. branch) in the tm2py repository.</p>

@@ -820,7 +820,8 @@ are working on, contribute advice, and sometimes work on the issue with you.</p>
 <p><strong>Tidy your work:</strong> In order to make sure all changes comply with our requirements and are consistent
 with specifications (i.e. for markdown files, which aren&rsquo;t tested in <code>pytest</code>), we use
 <a href="https://pre-commit.com/"><code>pre-commit</code></a>:</p>
-<div class="highlight"><pre><span></span><code>pre-commit run --all-files -all
+<div class="highlight"><pre><span></span><code>pre-commit run --all-files
+pre-commit run --hook-stage manual --all-files
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
