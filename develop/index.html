@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#for-testing-feature" class="md-skip">
+        <a href="#starting-out" class="md-skip">
           Skip to content
         </a>
       
@@ -351,13 +351,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#for-testing-feature" class="md-nav__link">
-    For testing feature
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#starting-out" class="md-nav__link">
     Starting Out
   </a>
@@ -366,8 +359,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    Installation
+  <a href="#prepare-virtual-environment" class="md-nav__link">
+    Prepare Virtual Environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-emme" class="md-nav__link">
+    Install Emme
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-tm2py" class="md-nav__link">
+    Install TM2PY
   </a>
   
 </li>
@@ -625,13 +632,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#for-testing-feature" class="md-nav__link">
-    For testing feature
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#starting-out" class="md-nav__link">
     Starting Out
   </a>
@@ -640,8 +640,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    Installation
+  <a href="#prepare-virtual-environment" class="md-nav__link">
+    Prepare Virtual Environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-emme" class="md-nav__link">
+    Install Emme
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-tm2py" class="md-nav__link">
+    Install TM2PY
   </a>
   
 </li>
@@ -692,38 +706,75 @@
 
   <h1>Home</h1>
 
-<h3 id="for-testing-feature">For testing feature<a class="headerlink" href="#for-testing-feature" title="Permanent link"> ¶</a></h3>
-<p>The purpose</p>
+<p>A python package to run the San Francisco Bay Area&rsquo;s Travel Model.</p>
+<p><strong>Owner:</strong> Metropolitan Transportation Commission (MTC)</p>
 <h2 id="starting-out">Starting Out<a class="headerlink" href="#starting-out" title="Permanent link"> ¶</a></h2>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The <code>tm2py</code> library works on top of <a href="https://www.inrosoftware.com/en/products/emme/">Inro&rsquo;s Emme Software</a>.  (Almost) all of the functionality of this library requires a valid Emme installation and license.</p>
-</div>
-<p>Note that you&rsquo;ll also need to install Emme&rsquo;s python packages into this conda environment.
-Following these instructions from an INRO community forum post: In the Emme Desktop application, open Tools-&gt;Application Options-&gt;Modeller, change your Python path as desired and click the &ldquo;Install Modeller Package&rdquo; button.
-Alternatively, you can copy the emme.pth from the Emme install to the site packages. This looks like:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> tm2py
-REM ... or from the root of the venv / conda environment
-copy %EMMEPATH%<span class="se">\e</span>mme.pth Lib<span class="se">\s</span>ite-packages<span class="se">\</span>
-</code></pre></div>
-<p>If this is successful, the following packages will be visible in your environment when you type <code>pip list</code>:</p>
-<ul>
-<li>inro-dynameq</li>
-<li>inro-emme</li>
-<li>inro-emme-agent</li>
-<li>inro-emme-engine</li>
-<li>inro-modeller</li>
-</ul>
-<p>Note that doing the emme package install will also install the package <em>pywin32</em>; if <em>pywin32</em> gets installed by other means (like
-conda or pip), then I got DLL load errors when trying to import the emme packages, so I recommend uninstalling <em>pywin32</em> before
-installing the emme packages.</p>
-<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link"> ¶</a></h3>
+<h3 id="prepare-virtual-environment">Prepare Virtual Environment<a class="headerlink" href="#prepare-virtual-environment" title="Permanent link"> ¶</a></h3>
 <p>If you are managing multiple python versions, we suggest using <a href="https://virtualenv.pypa.io/en/latest/"><code>virtualenv</code></a> or <a href="https://conda.io/en/latest/"><code>conda</code></a> virtual environments.</p>
 <p>The following instructions create and activate a conda environment (recommended) in which you can install:</p>
 <div class="highlight"><pre><span></span><code>conda env create -f environment.yml
 conda activate tm2py
 </code></pre></div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Basic Install</label><label for="__tabbed_1_2">Bleeding Edge</label><label for="__tabbed_1_3">From clone</label></div>
+<div class="admonition tip">
+<p class="admonition-title">pywin32 must be installed by Emme</p>
+<p>Installing the Emme package will also install the <code>pywin32</code> python package.
+If <code>pywin32</code> gets installed by other means (like conda or pip), then you will get DLL load errors when trying to import the emme packages. To remedy, we recommend checking for <code>pywin32</code> before hand and uninstalling <code>pywin32</code> before installing the emme packages.</p>
+</div>
+<p>To see if <code>pywin32</code> is installed in your environment, run:</p>
+<div class="highlight"><pre><span></span><code>conda list
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1"><code>pywin32</code> is listed as being intalled by conda</label><label for="__tabbed_1_2"><code>pywin32</code> is listed as bieng installed by pip</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Run:</p>
+<div class="highlight"><pre><span></span><code>conda uninstall pywin32
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Run:</p>
+<div class="highlight"><pre><span></span><code>pip uninstall pywin32
+</code></pre></div>
+</div>
+</div>
+</div>
+<h3 id="install-emme">Install Emme<a class="headerlink" href="#install-emme" title="Permanent link"> ¶</a></h3>
+<p>You will need to install Emme&rsquo;s python packages into this conda environment <strong>first</strong>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code>tm2py</code> library works on top of <a href="https://www.inrosoftware.com/en/products/emme/">Inro&rsquo;s Emme Software</a>.  (Almost) all of the functionality of this library requires a valid Emme installation and license.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Using GUI</label><label for="__tabbed_2_2">Terminal</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>From an INRO community forum post:</p>
+<ol>
+<li>In the Emme Desktop application, open Tools-&gt;Application Options-&gt;Modeller  </li>
+<li>Change your Python path as desired  </li>
+<li>Click the &ldquo;Install Modeller Package&rdquo; button  </li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p>Alternatively, you can copy the <code>emme.pth</code> from the Emme install to the site packages:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> tm2py
+REM ... or from the root of the venv / conda environment
+copy %EMMEPATH%<span class="se">\\</span>emme.pth Lib<span class="se">\\</span>site-packages<span class="se">\</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Installation is successful if the command:</p>
+<div class="highlight"><pre><span></span><code>conda list
+</code></pre></div>
+<p>Returns a list containing:</p>
+<div class="highlight"><pre><span></span><code>inro-dynameq
+inro-emme
+inro-emme-agent
+inro-emme-engine
+inro-modeller
+</code></pre></div>
+<h3 id="install-tm2py">Install TM2PY<a class="headerlink" href="#install-tm2py" title="Permanent link"> ¶</a></h3>
+<p>After successfully installing the Emme environment, you are ready to install tm2py.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Basic Install</label><label for="__tabbed_3_2">Bleeding Edge</label><label for="__tabbed_3_3">From clone</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>pip install tm2py
@@ -764,11 +815,22 @@ pip install -e .
 <p class="admonition-title">Before you run the model</p>
 <p>Due to size limitations, the bulk of the input data is not stored with the <code>tm2py</code> library, but can be accessed following the directions below.</p>
 </div>
-<p>| Example | Location        |
-| ======= | ===================== |
-| Union City | <a href="https://mtcdrive.box.com/s/3entr016e9teq2wt46x1os3fjqylfoge">example_union_test_highway.zip</a> |</p>
+<table>
+<thead>
+<tr>
+<th><strong>Example</strong></th>
+<th><strong>Location</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Union City</td>
+<td><a href="https://mtcdrive.box.com/s/3entr016e9teq2wt46x1os3fjqylfoge">example_union_test_highway.zip</a></td>
+</tr>
+</tbody>
+</table>
 <p>Additionally, <code>tm2py</code> has a helper function to download the data using the following syntax:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">python</label><label for="__tabbed_2_2">terminal</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">python</label><label for="__tabbed_4_2">terminal</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tm2py</span>
@@ -783,7 +845,7 @@ pip install -e .
 </div>
 <h3 id="typical-usage">Typical Usage<a class="headerlink" href="#typical-usage" title="Permanent link"> ¶</a></h3>
 <p>The following is the typical usage to run the model.  Other than the run directory, all the parameters for the model run are specified in [ any number of ] <code>toml</code> files, as documented in the configuration  <a href="api/#configuration">documentation</a> and <a href="examples/configuration/">example</a>.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">python</label><label for="__tabbed_3_2">terminal</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">python</label><label for="__tabbed_5_2">terminal</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tm2py</span>
@@ -793,7 +855,7 @@ pip install -e .
 <span class="p">)</span>
 <span class="n">controller</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
-- <code>run_dir</code> specifies specific run directory. Otherwise will use location of first <code>config.toml</code> file.</p>
+- <code>run_dir</code> specifies specific run directory. If not specified, it will use location of first <code>config.toml</code> file.</p>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>tm2py -s scenario.toml -m model.toml -r run_dir
