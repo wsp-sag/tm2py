@@ -422,6 +422,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#tm2py.controller.RunController.run_iterations" class="md-nav__link">
+    run_iterations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tm2py.controller.RunController.__init__" class="md-nav__link">
     __init__()
   </a>
@@ -431,13 +438,6 @@
           <li class="md-nav__item">
   <a href="#tm2py.controller.RunController.run" class="md-nav__link">
     run()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tm2py.controller.RunController.validate_inputs" class="md-nav__link">
-    validate_inputs()
   </a>
   
 </li>
@@ -2541,6 +2541,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#tm2py.controller.RunController.run_iterations" class="md-nav__link">
+    run_iterations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tm2py.controller.RunController.__init__" class="md-nav__link">
     __init__()
   </a>
@@ -2550,13 +2557,6 @@
           <li class="md-nav__item">
   <a href="#tm2py.controller.RunController.run" class="md-nav__link">
     run()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tm2py.controller.RunController.validate_inputs" class="md-nav__link">
-    validate_inputs()
   </a>
   
 </li>
@@ -4534,6 +4534,7 @@ component: current running (or last started) Component object</p>
 
         <span class="c1"># mapping from defined names referenced in config to Component objects</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_component_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">component_cls_map</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validated_components</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emme_manager</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_iteration</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_component</span> <span class="o">=</span> <span class="kc">None</span>
@@ -4544,6 +4545,14 @@ component: current running (or last started) Component object</p>
     <span class="k">def</span> <span class="nf">run_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The root run directory of the model run.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_dir</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">run_iterations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;List of iterations for this model run.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">range</span><span class="p">(</span>
+            <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">start_iteration</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">end_iteration</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -4585,46 +4594,49 @@ component: current running (or last started) Component object</p>
 
     <span class="k">def</span> <span class="nf">_queue_components</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add components per iteration to queue according to input Config.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="s2">&quot;Components already queued, returning without re-queuing.&quot;</span>
+            <span class="k">return</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">start_iteration</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span> <span class="o">+=</span> <span class="p">[</span>
-                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_component_map</span><span class="p">[</span><span class="n">c_name</span><span class="p">])</span>
-                <span class="k">for</span> <span class="n">c_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">initial_components</span>
-            <span class="p">]</span>
-        <span class="n">iteration_nums</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span>
-            <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">start_iteration</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">end_iteration</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="n">iteration_components</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_component_map</span><span class="p">[</span><span class="n">c_name</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">c_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">global_iteration_components</span>
-        <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span>
-            <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span>
-                <span class="n">iteration_nums</span><span class="p">,</span>
-                <span class="n">iteration_components</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">global_iteration_components</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span> <span class="o">+=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">end_iteration</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_component_map</span><span class="p">[</span><span class="n">c_name</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">c_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">final_components</span>
-        <span class="p">]</span>
+            <span class="k">for</span> <span class="n">_c_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">initial_components</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_component_to_queue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_c_name</span><span class="p">)</span>
 
+        <span class="c1"># Queue components which are run for each iteration</span>
+        <span class="n">_iteration_x_components</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run_iterations</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">global_iteration_components</span>
+        <span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_iteration</span><span class="p">,</span> <span class="n">_c_name</span> <span class="ow">in</span> <span class="n">_iteration_x_components</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_component_to_queue</span><span class="p">(</span><span class="n">_iteration</span><span class="p">,</span> <span class="n">_c_name</span><span class="p">)</span>
+
+        <span class="c1"># Queue components which are run after final iteration</span>
+        <span class="n">_finalizer_iteration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">end_iteration</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">for</span> <span class="n">c_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">final_components</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_component_to_queue</span><span class="p">(</span><span class="n">_finalizer_iteration</span><span class="p">,</span> <span class="n">_c_name</span><span class="p">)</span>
+
+        <span class="c1"># If start_component specified, remove things before its first occurance</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">start_component</span><span class="p">:</span>
-            <span class="n">start_index</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">idx</span>
-                <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span><span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">start_component</span> <span class="o">==</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span><span class="p">[</span><span class="n">start_index</span><span class="p">:]</span>
+            <span class="n">_queued_c_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span><span class="p">]</span>
+            <span class="n">_start_c_index</span> <span class="o">=</span> <span class="n">_queued_c_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="n">start_component</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span><span class="p">[</span><span class="n">_start_c_index</span><span class="p">:]</span>
 
-    <span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Validate input state prior to run.&quot;&quot;&quot;</span>
-        <span class="n">already_validated_components</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">already_validated_components</span><span class="p">:</span>
-                <span class="n">component</span><span class="o">.</span><span class="n">validate_inputs</span><span class="p">()</span>
-                <span class="n">already_validated_components</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_add_component_to_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iteration</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">component_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add component to queue (self._queued_components), first validating its inputs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            iteration (int): iteration to add component to.</span>
+<span class="sd">            component (Component): Component to add to queue.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_component</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_component_map</span><span class="p">[</span><span class="n">component_name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">component_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validated_components</span><span class="p">:</span>
+            <span class="n">_component</span><span class="o">.</span><span class="n">validate_inputs</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_validated_components</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">component_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_iteration</span><span class="p">,</span> <span class="n">component_name</span><span class="p">,</span> <span class="n">_component</span><span class="p">))</span>
 </code></pre></div>
         </details>
 
@@ -4729,6 +4741,29 @@ component: current running (or last started) Component object</p>
 
 
 
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h5 id="tm2py.controller.RunController.run_iterations" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">run_iterations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#tm2py.controller.RunController.run_iterations" class="headerlink" title="Permanent link"> ¶</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>List of iterations for this model run.</p>
+    </div>
+
+  </div>
+
+
+
 
 
 
@@ -4803,6 +4838,7 @@ config file is located.</p></td>
 
     <span class="c1"># mapping from defined names referenced in config to Component objects</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_component_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">component_cls_map</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_validated_components</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_emme_manager</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_iteration</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_component</span> <span class="o">=</span> <span class="kc">None</span>
@@ -4843,37 +4879,6 @@ config file is located.</p></td>
         <span class="bp">self</span><span class="o">.</span><span class="n">_component</span> <span class="o">=</span> <span class="n">component</span>
         <span class="n">component</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">completed_components</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">iteration</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">component</span><span class="p">))</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h5 id="tm2py.controller.RunController.validate_inputs" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
-
-<a href="#tm2py.controller.RunController.validate_inputs" class="headerlink" title="Permanent link"> ¶</a></h5>
-
-    <div class="doc doc-contents ">
-
-      <p>Validate input state prior to run.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>tm2py/controller.py</code></summary>
-          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Validate input state prior to run.&quot;&quot;&quot;</span>
-    <span class="n">already_validated_components</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">component</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">already_validated_components</span><span class="p">:</span>
-            <span class="n">component</span><span class="o">.</span><span class="n">validate_inputs</span><span class="p">()</span>
-            <span class="n">already_validated_components</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -15402,7 +15407,7 @@ EmmeManager        </code>
   <tbody>
       <tr>
         <td><code>emmebank</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140608017470944&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;139969651824288&#39;&gt;</code></td>
         <td><p>the Emmebank object to change the dimensions</p></td>
         <td><em>required</em></td>
       </tr>
@@ -15511,13 +15516,13 @@ EmmeManager        </code>
       </tr>
       <tr>
         <td><code>src</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140608017499040&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140608017511040&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139969651864384&#39;&gt;]</code></td>
         <td><p>source Emme scenario or network to load values from</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>dst</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140608017499040&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140608017511040&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139969651864384&#39;&gt;]</code></td>
         <td><p>destination Emme scenario or network to save values to</p></td>
         <td><em>required</em></td>
       </tr>
@@ -15636,7 +15641,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140608017587360&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139969651940704&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -15709,7 +15714,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140608017470944&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;139969651824288&#39;&gt;</code></td>
       <td><p>Emmebank object, see Emme API Reference, Database section for details.</p></td>
     </tr>
   </tbody>
@@ -15769,7 +15774,7 @@ and network.set_attribute_values.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140608017499040&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;</code></td>
         <td><p>Emme scenario object, see Emme API reference</p></td>
         <td><em>required</em></td>
       </tr>
@@ -15791,7 +15796,7 @@ and network.set_attribute_values.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140608017511040&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139969651864384&#39;&gt;</code></td>
       <td><p>Emme Network object, see Emme API Reference, Network section for details.</p></td>
     </tr>
   </tbody>
@@ -16030,7 +16035,7 @@ first.</p>
   <tbody>
       <tr>
         <td><code>emme_project</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140608017587360&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139969651940704&#39;&gt;</code></td>
         <td><p>open &lsquo;Emme Desktop&rsquo; application (inro.emme.desktop.app)</p></td>
         <td><code>None</code></td>
       </tr>
@@ -16046,7 +16051,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;140608017539136&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;139969651892480&#39;&gt;</code></td>
       <td><p>Emme Modeller object, see Emme API Reference, Modeller section for details.</p></td>
     </tr>
   </tbody>
@@ -16131,7 +16136,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140608017587360&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139969651940704&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -16208,7 +16213,7 @@ Emme API.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140608017499040&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -16587,7 +16592,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140608017487040&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139969651840384&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -16662,7 +16667,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140608017487040&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139969651840384&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17505,7 +17510,7 @@ Supports &ldquo;with&rdquo; statement.</p>
   <tbody>
       <tr>
         <td><code>matrices</code></td>
-        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140608017487040&#39;&gt;, str]]</code></td>
+        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139969651840384&#39;&gt;, str]]</code></td>
         <td><p>list of Emme matrix objects or names / IDs
 of matrices in Emmebank, or dictionary of
 name: Emme matrix object/ Emme matrix ID</p></td>
@@ -17564,7 +17569,7 @@ name: Emme matrix object/ Emme matrix ID</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140608017487040&#39;&gt;]</code></td>
+        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139969651840384&#39;&gt;]</code></td>
         <td><p>Emme matrix object or name / ID of matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17698,7 +17703,7 @@ aggregation options, and mostly running link expression calculations</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140608017499040&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
