@@ -9341,6 +9341,7 @@ def _step2(self):
 
 
 
+
   </div>
 
     </div>
@@ -10271,7 +10272,7 @@ PrepareNetwork            (<a class="autorefs autorefs-internal" title="tm2py.co
                 <span class="sa">f</span><span class="s2">&quot;Tolls file (config.highway.tolls.file_path) does not exist: </span><span class="si">{</span><span class="n">toll_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                 <span class="n">level</span><span class="o">=</span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tolls file does not exist: </span><span class="si">{</span><span class="n">toll_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tolls file does not exist: </span><span class="si">{</span><span class="n">toll_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">src_veh_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">highway</span><span class="o">.</span><span class="n">tolls</span><span class="o">.</span><span class="n">src_vehicle_group_names</span>
         <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fac_index&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">time_periods</span><span class="p">:</span>
@@ -10287,7 +10288,7 @@ PrepareNetwork            (<a class="autorefs autorefs-internal" title="tm2py.co
                         <span class="sa">f</span><span class="s2">&quot;Tolls file missing column: </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;ERROR&quot;</span>
                     <span class="p">)</span>
         <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Tolls file missing </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2"> columns: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
@@ -10607,7 +10608,7 @@ PrepareNetwork            (<a class="autorefs autorefs-internal" title="tm2py.co
             <span class="sa">f</span><span class="s2">&quot;Tolls file (config.highway.tolls.file_path) does not exist: </span><span class="si">{</span><span class="n">toll_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">level</span><span class="o">=</span><span class="s2">&quot;ERROR&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tolls file does not exist: </span><span class="si">{</span><span class="n">toll_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tolls file does not exist: </span><span class="si">{</span><span class="n">toll_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">src_veh_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">highway</span><span class="o">.</span><span class="n">tolls</span><span class="o">.</span><span class="n">src_vehicle_group_names</span>
     <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fac_index&quot;</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">time_periods</span><span class="p">:</span>
@@ -10623,7 +10624,7 @@ PrepareNetwork            (<a class="autorefs autorefs-internal" title="tm2py.co
                     <span class="sa">f</span><span class="s2">&quot;Tolls file missing column: </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;ERROR&quot;</span>
                 <span class="p">)</span>
     <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+        <span class="k">raise</span> <span class="n">FileFormatError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Tolls file missing </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2"> columns: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 </code></pre></div>
@@ -15407,7 +15408,7 @@ EmmeManager        </code>
   <tbody>
       <tr>
         <td><code>emmebank</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;139969651824288&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140142535735280&#39;&gt;</code></td>
         <td><p>the Emmebank object to change the dimensions</p></td>
         <td><em>required</em></td>
       </tr>
@@ -15516,13 +15517,13 @@ EmmeManager        </code>
       </tr>
       <tr>
         <td><code>src</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139969651864384&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140142535763376&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140142535779472&#39;&gt;]</code></td>
         <td><p>source Emme scenario or network to load values from</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>dst</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139969651864384&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140142535763376&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140142535779472&#39;&gt;]</code></td>
         <td><p>destination Emme scenario or network to save values to</p></td>
         <td><em>required</em></td>
       </tr>
@@ -15641,7 +15642,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139969651940704&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140142535851696&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -15714,7 +15715,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;139969651824288&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140142535735280&#39;&gt;</code></td>
       <td><p>Emmebank object, see Emme API Reference, Database section for details.</p></td>
     </tr>
   </tbody>
@@ -15774,7 +15775,7 @@ and network.set_attribute_values.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140142535763376&#39;&gt;</code></td>
         <td><p>Emme scenario object, see Emme API reference</p></td>
         <td><em>required</em></td>
       </tr>
@@ -15796,7 +15797,7 @@ and network.set_attribute_values.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139969651864384&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140142535779472&#39;&gt;</code></td>
       <td><p>Emme Network object, see Emme API Reference, Network section for details.</p></td>
     </tr>
   </tbody>
@@ -16035,7 +16036,7 @@ first.</p>
   <tbody>
       <tr>
         <td><code>emme_project</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139969651940704&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140142535851696&#39;&gt;</code></td>
         <td><p>open &lsquo;Emme Desktop&rsquo; application (inro.emme.desktop.app)</p></td>
         <td><code>None</code></td>
       </tr>
@@ -16051,7 +16052,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;139969651892480&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;140142535803472&#39;&gt;</code></td>
       <td><p>Emme Modeller object, see Emme API Reference, Modeller section for details.</p></td>
     </tr>
   </tbody>
@@ -16136,7 +16137,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139969651940704&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140142535851696&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -16213,7 +16214,7 @@ Emme API.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140142535763376&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -16592,7 +16593,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139969651840384&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140142535751376&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -16667,7 +16668,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139969651840384&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140142535751376&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17510,7 +17511,7 @@ Supports &ldquo;with&rdquo; statement.</p>
   <tbody>
       <tr>
         <td><code>matrices</code></td>
-        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139969651840384&#39;&gt;, str]]</code></td>
+        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140142535751376&#39;&gt;, str]]</code></td>
         <td><p>list of Emme matrix objects or names / IDs
 of matrices in Emmebank, or dictionary of
 name: Emme matrix object/ Emme matrix ID</p></td>
@@ -17569,7 +17570,7 @@ name: Emme matrix object/ Emme matrix ID</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139969651840384&#39;&gt;]</code></td>
+        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140142535751376&#39;&gt;]</code></td>
         <td><p>Emme matrix object or name / ID of matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17703,7 +17704,7 @@ aggregation options, and mostly running link expression calculations</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139969651852384&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140142535763376&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
