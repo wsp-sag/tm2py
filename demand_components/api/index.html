@@ -2825,6 +2825,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#tm2py.tools.df_to_omx" class="md-nav__link">
+    df_to_omx()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tm2py.tools.download_unzip" class="md-nav__link">
     download_unzip()
   </a>
@@ -5556,6 +5563,13 @@
   
     <nav class="md-nav" aria-label="tools">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tm2py.tools.df_to_omx" class="md-nav__link">
+    df_to_omx()
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#tm2py.tools.download_unzip" class="md-nav__link">
@@ -11707,7 +11721,7 @@ HouseholdModel            (<a class="autorefs autorefs-internal" title="tm2py.co
 <span class="sd">            2. Starts matrix manager.</span>
 <span class="sd">            3. Starts resident travel model (CTRAMP).</span>
 <span class="sd">            4. Cleans up CTRAMP java.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_household_manager</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_matrix_manager</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run_resident_model</span><span class="p">()</span>
@@ -11798,7 +11812,7 @@ HouseholdModel            (<a class="autorefs autorefs-internal" title="tm2py.co
 <span class="sd">        2. Starts matrix manager.</span>
 <span class="sd">        3. Starts resident travel model (CTRAMP).</span>
 <span class="sd">        4. Cleans up CTRAMP java.</span>
-<span class="sd">    &quot;&quot;&quot;</span>        
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_start_household_manager</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_start_matrix_manager</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_run_resident_model</span><span class="p">()</span>
@@ -11940,8 +11954,8 @@ AirPassenger            (<a class="autorefs autorefs-internal" title="tm2py.comp
       <p>Builds the airport trip matrices.</p>
 <p>input: nonres/{year}_{tofrom}{airport}.csv
 output: five time-of-day-specific OMX files with matrices DA, SR2, SR3</p>
-<p>NOTES:</p>
-<p>These are independent of level-of-service.</p>
+<p>Notes:
+These are independent of level-of-service.</p>
 <p>Note that the reference names, years, file paths and other key details
 are controlled via the config, air_passenger section. See the
 AirPassengerConfig doc for details on specifying these inputs.</p>
@@ -12017,8 +12031,7 @@ as follows:
 <span class="sd">    input: nonres/{year}_{tofrom}{airport}.csv</span>
 <span class="sd">    output: five time-of-day-specific OMX files with matrices DA, SR2, SR3</span>
 
-<span class="sd">    NOTES:</span>
-
+<span class="sd">    Notes:</span>
 <span class="sd">    These are independent of level-of-service.</span>
 
 <span class="sd">    Note that the reference names, years, file paths and other key details</span>
@@ -12112,7 +12125,14 @@ as follows:
 
     <span class="nd">@LogStartEnd</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Build the airport trip matrices&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Run the Air Passenger Demand model to generate the demand matrices.</span>
+
+<span class="sd">        Steps:</span>
+<span class="sd">            1. Load the demand data from the CSV files.</span>
+<span class="sd">            2. Aggregate the demand data into the assignable classes.</span>
+<span class="sd">            3. Create the demand matrices be interpolating the demand data.</span>
+<span class="sd">            4. Write the demand matrices to OMX files.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">air_passenger</span><span class="o">.</span><span class="n">reference_start_year</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">air_passenger</span><span class="o">.</span><span class="n">reference_end_year</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span> <span class="o">=</span> <span class="p">{}</span>
@@ -12121,114 +12141,112 @@ as follows:
             <span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span><span class="p">[</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;src_group_name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;access_modes&quot;</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_out_names</span><span class="p">[</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;src_group_name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;result_class_name&quot;</span><span class="p">]</span>
 
-        <span class="n">input_demand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_demand</span><span class="p">()</span>
+        <span class="n">input_demand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_air_pax_demand</span><span class="p">()</span>
         <span class="n">aggr_demand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregate_demand</span><span class="p">(</span><span class="n">input_demand</span><span class="p">)</span>
-        <span class="n">demand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interpolate</span><span class="p">(</span><span class="n">aggr_demand</span><span class="p">)</span>
+        <span class="c1"># for period in self._periods:</span>
+        <span class="c1"># for group in self._mode_groups:</span>
+        <span class="c1">#    name = f&quot;{period}_{group}&quot;</span>
+        <span class="n">demand</span> <span class="o">=</span> <span class="n">interpolate_dfs</span><span class="p">(</span>
+            <span class="n">aggr_demand</span><span class="p">,</span>
+            <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span><span class="p">),</span>
+            <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span><span class="p">),</span>
+            <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">year</span><span class="p">),</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_export_result</span><span class="p">(</span><span class="n">demand</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_load_demand</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Loads demand from the CSV files into pandas dataframe.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">_load_air_pax_demand</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Loads demand from the CSV files into pandas dataframe.</span>
 
-        <span class="k">def</span> <span class="nf">rename_columns</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<span class="sd">        Uses the following configs to determine the input file names and paths:</span>
+<span class="sd">        - self.config.air_passenger.input_demand_folder</span>
+<span class="sd">        - self.config.air_passenger.airport_names</span>
+<span class="sd">        - self.config.air_passenger.reference_start_year</span>
+<span class="sd">        - self.config.air_passenger.reference_end_year</span>
+
+<span class="sd">        Using the pattern: f&quot;{year}_{direction}{airport}.csv&quot;</span>
+
+<span class="sd">        Returns: pandas dataframe with the following columns:</span>
+<span class="sd">            (1) airport</span>
+<span class="sd">            (2) time_of_day</span>
+<span class="sd">            (3) access_mode</span>
+<span class="sd">            (4) demand</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">_rename_columns</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ORIG&quot;</span><span class="p">,</span> <span class="s2">&quot;DEST&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">name</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span>
 
         <span class="n">input_data_folder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">air_passenger</span><span class="o">.</span><span class="n">input_demand_folder</span>
-        <span class="n">input_demand</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span><span class="p">]:</span>
-            <span class="n">input_dataframes</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">airport</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">air_passenger</span><span class="o">.</span><span class="n">airport_names</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">direction</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;from&quot;</span><span class="p">]:</span>
-                    <span class="n">file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">direction</span><span class="si">}{</span><span class="n">airport</span><span class="si">}</span><span class="s2">.csv&quot;</span>
-                    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">input_data_folder</span><span class="p">,</span> <span class="n">file_name</span>
-                    <span class="p">)</span>
-                    <span class="n">input_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-                    <span class="n">input_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename_columns</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                    <span class="n">input_dataframes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_df</span><span class="p">)</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">input_dataframes</span><span class="p">)</span>
-            <span class="n">input_demand</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-            <span class="n">input_demand</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">input_demand</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ORIG&quot;</span><span class="p">,</span> <span class="s2">&quot;DEST&quot;</span><span class="p">]</span>
+
+        <span class="n">_airport_direction</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">air_passenger</span><span class="o">.</span><span class="n">airport_names</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;from&quot;</span><span class="p">],</span>
         <span class="p">)</span>
-        <span class="n">grouped</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;ORIG&quot;</span><span class="p">,</span> <span class="s2">&quot;DEST&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">grouped</span>
+
+        <span class="n">_input_demand_df_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span><span class="p">]:</span>
+            <span class="n">_input_df_year_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">airport</span><span class="p">,</span> <span class="n">direction</span> <span class="ow">in</span> <span class="n">_airport_direction</span><span class="p">:</span>
+                <span class="n">_file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">direction</span><span class="si">}{</span><span class="n">airport</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+                <span class="n">_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">input_data_folder</span><span class="p">,</span> <span class="n">_file_name</span>
+                <span class="p">)</span>
+                <span class="n">_input_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">_file_path</span><span class="p">)</span>
+                <span class="n">_input_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">_rename_columns</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">_input_df_year_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_input_df</span><span class="p">)</span>
+            <span class="n">_input_year_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">_input_df_year_list</span><span class="p">)</span>
+            <span class="n">_input_demand_df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_input_year_df</span><span class="p">)</span>
+
+        <span class="n">_air_pax_demand_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+            <span class="n">_input_demand_df_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">_input_demand_df_list</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">,</span>
+            <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ORIG&quot;</span><span class="p">,</span> <span class="s2">&quot;DEST&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="n">_grouped_air_pax_demand_df</span> <span class="o">=</span> <span class="n">_air_pax_demand_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;ORIG&quot;</span><span class="p">,</span> <span class="s2">&quot;DEST&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">_grouped_air_pax_demand_df</span>
 
     <span class="k">def</span> <span class="nf">_aggregate_demand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_demand</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Aggregate demand into the assignable classes for each year.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Aggregate demand into the assignable classes for each year.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            input_demand: pandas dataframe with the following columns: TODO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">aggr_demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span><span class="p">]:</span>
-            <span class="k">for</span> <span class="n">period</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periods</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">access_modes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="n">input_demand</span><span class="p">[</span>
-                        <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">access</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">access</span> <span class="ow">in</span> <span class="n">access_modes</span><span class="p">]</span>
-                    <span class="p">]</span>
-                    <span class="n">aggr_demand</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">_year_tp_group_accessmode</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_periods</span><span class="p">,</span>
+            <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># TODO This should be done entirely in pandas using group-by</span>
+        <span class="k">for</span> <span class="n">_year</span><span class="p">,</span> <span class="n">_period</span><span class="p">,</span> <span class="n">_group</span><span class="p">,</span> <span class="n">_access_modes</span> <span class="ow">in</span> <span class="n">_year_tp_group_accessmode</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">input_demand</span><span class="p">[</span>
+                <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_period</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">_access</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">_group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">_year</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">_access</span> <span class="ow">in</span> <span class="n">_access_modes</span><span class="p">]</span>
+            <span class="p">]</span>
+            <span class="n">aggr_demand</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_period</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">_group</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">_year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">aggr_demand</span>
 
-    <span class="k">def</span> <span class="nf">_interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aggr_demand</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Interpolate for the model year assuming linear growth between the reference years.&quot;&quot;&quot;</span>
-        <span class="n">start_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span><span class="p">)</span>
-        <span class="n">end_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span><span class="p">)</span>
-        <span class="n">year</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">year</span> <span class="ow">in</span> <span class="p">[</span><span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span><span class="p">]:</span>
-            <span class="c1"># no interpolation is needed</span>
-            <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">aggr_demand</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">year</span><span class="p">)]</span>
-            <span class="n">demand</span> <span class="o">=</span> <span class="n">aggr_demand</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-            <span class="k">def</span> <span class="nf">rename_columns</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-            <span class="n">demand</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename_columns</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">demand</span>
-
-        <span class="c1"># In the cube .job script, the formula is:</span>
-        <span class="c1"># token_scale = (%MODEL_YEAR% - 2007)/(2035 - %MODEL_YEAR%)</span>
-        <span class="c1"># and it should be: token_scale = (%MODEL_YEAR% - 2007)/(2035 - 2007)</span>
-        <span class="c1"># scale = float((int(year) - 2007)) / (2035 - int(year))</span>
-        <span class="n">scale</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">-</span> <span class="n">start_year</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">end_year</span> <span class="o">-</span> <span class="n">start_year</span><span class="p">)</span>
-        <span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">period</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periods</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span><span class="p">:</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="n">demand</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">scale</span><span class="p">)</span> <span class="o">*</span> <span class="n">aggr_demand</span><span class="p">[</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">start_year</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="p">]</span> <span class="o">+</span> <span class="n">scale</span> <span class="o">*</span> <span class="n">aggr_demand</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">end_year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">demand</span>
-
-    <span class="k">def</span> <span class="nf">_export_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">demand</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_export_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">demand_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Export resulting model year demand to OMX files by period.&quot;&quot;&quot;</span>
-        <span class="c1"># dropping ORIG and DEST index for calculation of numpy array index</span>
-        <span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-        <span class="c1"># get all used Zone IDs to produce index and zone mapping in OMX file</span>
-        <span class="n">zone_ids</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="s2">&quot;ORIG&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">demand</span><span class="p">[</span><span class="s2">&quot;DEST&quot;</span><span class="p">])))</span>
-        <span class="n">num_zones</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zone_ids</span><span class="p">)</span>
-        <span class="n">zone_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">z</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">zone_ids</span><span class="p">))</span>
-        <span class="c1"># calculate index of entries in numpy array list</span>
-        <span class="n">demand</span><span class="p">[</span><span class="s2">&quot;INDEX&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">zone_map</span><span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;ORIG&quot;</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">zone_ids</span><span class="p">)</span> <span class="o">+</span> <span class="n">zone_map</span><span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;DEST&quot;</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-        <span class="p">)</span>
         <span class="n">path_tmplt</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">air_passenger</span><span class="o">.</span><span class="n">highway_demand_file</span>
         <span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path_tmplt</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
         <span class="k">for</span> <span class="n">period</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_periods</span><span class="p">:</span>
             <span class="n">file_path</span> <span class="o">=</span> <span class="n">path_tmplt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">period</span><span class="o">=</span><span class="n">period</span><span class="p">)</span>
-            <span class="n">omx_file</span> <span class="o">=</span> <span class="n">_omx</span><span class="o">.</span><span class="n">open_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">omx_file</span><span class="o">.</span><span class="n">create_mapping</span><span class="p">(</span><span class="s2">&quot;zone_number&quot;</span><span class="p">,</span> <span class="n">zone_ids</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span><span class="p">:</span>
-                    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_zones</span><span class="p">,</span> <span class="n">num_zones</span><span class="p">))</span>
-                    <span class="c1"># Insert values at the calculated indices in array</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
-                        <span class="n">array</span><span class="p">,</span>
-                        <span class="n">demand</span><span class="p">[</span><span class="s2">&quot;INDEX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
-                        <span class="n">demand</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
-                    <span class="p">)</span>
-                    <span class="n">omx_file</span><span class="o">.</span><span class="n">create_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_names</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">obj</span><span class="o">=</span><span class="n">array</span><span class="p">)</span>
-            <span class="k">finally</span><span class="p">:</span>
-                <span class="n">omx_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">df_to_omx</span><span class="p">(</span>
+                <span class="n">demand_df</span><span class="p">,</span>
+                <span class="p">{</span><span class="n">group</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">group</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span><span class="p">},</span>
+                <span class="n">file_path</span><span class="p">,</span>
+                <span class="n">orig_column</span> <span class="o">=</span> <span class="s2">&quot;ORIG&quot;</span><span class="p">,</span>
+                <span class="n">dest_column</span> <span class="o">=</span> <span class="s2">&quot;DEST&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
 </code></pre></div>
         </details>
 
@@ -12314,13 +12332,29 @@ as follows:
 
     <div class="doc doc-contents ">
 
-      <p>Build the airport trip matrices</p>
+      <p>Run the Air Passenger Demand model to generate the demand matrices.</p>
+<div class="admonition steps">
+<p class="admonition-title">Steps</p>
+<ol>
+<li>Load the demand data from the CSV files.</li>
+<li>Aggregate the demand data into the assignable classes.</li>
+<li>Create the demand matrices be interpolating the demand data.</li>
+<li>Write the demand matrices to OMX files.</li>
+</ol>
+</div>
 
         <details class="quote">
           <summary>Source code in <code>tm2py/components/demand/air_passenger.py</code></summary>
           <div class="codehilite"><pre><span></span><code><span class="nd">@LogStartEnd</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Build the airport trip matrices&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Run the Air Passenger Demand model to generate the demand matrices.</span>
+
+<span class="sd">    Steps:</span>
+<span class="sd">        1. Load the demand data from the CSV files.</span>
+<span class="sd">        2. Aggregate the demand data into the assignable classes.</span>
+<span class="sd">        3. Create the demand matrices be interpolating the demand data.</span>
+<span class="sd">        4. Write the demand matrices to OMX files.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">air_passenger</span><span class="o">.</span><span class="n">reference_start_year</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">air_passenger</span><span class="o">.</span><span class="n">reference_end_year</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span> <span class="o">=</span> <span class="p">{}</span>
@@ -12329,9 +12363,17 @@ as follows:
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode_groups</span><span class="p">[</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;src_group_name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;access_modes&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_out_names</span><span class="p">[</span><span class="n">group</span><span class="p">[</span><span class="s2">&quot;src_group_name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;result_class_name&quot;</span><span class="p">]</span>
 
-    <span class="n">input_demand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_demand</span><span class="p">()</span>
+    <span class="n">input_demand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_air_pax_demand</span><span class="p">()</span>
     <span class="n">aggr_demand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregate_demand</span><span class="p">(</span><span class="n">input_demand</span><span class="p">)</span>
-    <span class="n">demand</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interpolate</span><span class="p">(</span><span class="n">aggr_demand</span><span class="p">)</span>
+    <span class="c1"># for period in self._periods:</span>
+    <span class="c1"># for group in self._mode_groups:</span>
+    <span class="c1">#    name = f&quot;{period}_{group}&quot;</span>
+    <span class="n">demand</span> <span class="o">=</span> <span class="n">interpolate_dfs</span><span class="p">(</span>
+        <span class="n">aggr_demand</span><span class="p">,</span>
+        <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_year</span><span class="p">),</span>
+        <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_year</span><span class="p">),</span>
+        <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">scenario</span><span class="o">.</span><span class="n">year</span><span class="p">),</span>
+    <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_export_result</span><span class="p">(</span><span class="n">demand</span><span class="p">)</span>
 </code></pre></div>
         </details>
@@ -19182,7 +19224,7 @@ EmmeManager        </code>
   <tbody>
       <tr>
         <td><code>emmebank</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140138509068224&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140270269196032&#39;&gt;</code></td>
         <td><p>the Emmebank object to change the dimensions</p></td>
         <td><em>required</em></td>
       </tr>
@@ -19291,13 +19333,13 @@ EmmeManager        </code>
       </tr>
       <tr>
         <td><code>src</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140138509096320&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140138509112416&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140270269224128&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140270269236128&#39;&gt;]</code></td>
         <td><p>source Emme scenario or network to load values from</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>dst</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140138509096320&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140138509112416&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140270269224128&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140270269236128&#39;&gt;]</code></td>
         <td><p>destination Emme scenario or network to save values to</p></td>
         <td><em>required</em></td>
       </tr>
@@ -19416,7 +19458,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140138509184640&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140270269312448&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -19489,7 +19531,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140138509068224&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140270269196032&#39;&gt;</code></td>
       <td><p>Emmebank object, see Emme API Reference, Database section for details.</p></td>
     </tr>
   </tbody>
@@ -19549,7 +19591,7 @@ and network.set_attribute_values.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140138509096320&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140270269224128&#39;&gt;</code></td>
         <td><p>Emme scenario object, see Emme API reference</p></td>
         <td><em>required</em></td>
       </tr>
@@ -19571,7 +19613,7 @@ and network.set_attribute_values.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140138509112416&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140270269236128&#39;&gt;</code></td>
       <td><p>Emme Network object, see Emme API Reference, Network section for details.</p></td>
     </tr>
   </tbody>
@@ -19810,7 +19852,7 @@ first.</p>
   <tbody>
       <tr>
         <td><code>emme_project</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140138509184640&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140270269312448&#39;&gt;</code></td>
         <td><p>open &lsquo;Emme Desktop&rsquo; application (inro.emme.desktop.app)</p></td>
         <td><code>None</code></td>
       </tr>
@@ -19826,7 +19868,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;140138509136416&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;140270269264224&#39;&gt;</code></td>
       <td><p>Emme Modeller object, see Emme API Reference, Modeller section for details.</p></td>
     </tr>
   </tbody>
@@ -19911,7 +19953,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140138509184640&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140270269312448&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -19988,7 +20030,7 @@ Emme API.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140138509096320&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140270269224128&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -20367,7 +20409,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140138509084320&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140270269212128&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -20442,7 +20484,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140138509084320&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140270269212128&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -21285,7 +21327,7 @@ Supports &ldquo;with&rdquo; statement.</p>
   <tbody>
       <tr>
         <td><code>matrices</code></td>
-        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140138509084320&#39;&gt;, str]]</code></td>
+        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140270269212128&#39;&gt;, str]]</code></td>
         <td><p>list of Emme matrix objects or names / IDs
 of matrices in Emmebank, or dictionary of
 name: Emme matrix object/ Emme matrix ID</p></td>
@@ -21344,7 +21386,7 @@ name: Emme matrix object/ Emme matrix ID</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140138509084320&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140270269212128&#39;&gt;]</code></td>
         <td><p>Emme matrix object or name / ID of matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -21942,7 +21984,7 @@ aggregation options, and mostly running link expression calculations</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140138509096320&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140270269224128&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -25945,6 +25987,120 @@ rr&rdquo;C:\Software\Slack\TravelModel_SlackWebhook.txt&rdquo; (if local)</p>
 
 
 
+<h4 id="tm2py.tools.df_to_omx" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">df_to_omx</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">matrix_dict</span><span class="p">,</span> <span class="n">omx_filename</span><span class="p">,</span> <span class="n">orig_column</span><span class="o">=</span><span class="s1">&#39;ORIG&#39;</span><span class="p">,</span> <span class="n">dest_column</span><span class="o">=</span><span class="s1">&#39;DEST&#39;</span><span class="p">)</span></code>
+
+
+<a href="#tm2py.tools.df_to_omx" class="headerlink" title="Permanent link"> ¶</a></h4>
+
+    <div class="doc doc-contents ">
+
+      <p>Export a dataframe to an OMX matrix file.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>df</code></td>
+        <td><code>pd.DataFrame</code></td>
+        <td><p>Dataframe to export.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>omx_filename</code></td>
+        <td><code>str</code></td>
+        <td><p>OMX file to write to.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>matrix_dict</code></td>
+        <td><code>Mapping[str, str]</code></td>
+        <td><p>Mapping of OMX matrix name to DF column name.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>orig_column</code></td>
+        <td><code>str</code></td>
+        <td><p>Origin column name. Defaults to &ldquo;ORIG&rdquo;.</p></td>
+        <td><code>&#39;ORIG&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>dest_column</code></td>
+        <td><code>str</code></td>
+        <td><p>Destination column name. Defaults to &ldquo;DEST&rdquo;.</p></td>
+        <td><code>&#39;DEST&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>tm2py/tools.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">df_to_omx</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">matrix_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">omx_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">orig_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ORIG&quot;</span><span class="p">,</span>
+    <span class="n">dest_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;DEST&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Export a dataframe to an OMX matrix file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): Dataframe to export.</span>
+<span class="sd">        omx_filename (str): OMX file to write to.</span>
+<span class="sd">        matrix_dict (Mapping[str, str]): Mapping of OMX matrix name to DF column name.</span>
+<span class="sd">        orig_column (str, optional): Origin column name. Defaults to &quot;ORIG&quot;.</span>
+<span class="sd">        dest_column (str, optional): Destination column name. Defaults to &quot;DEST&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="c1"># Get all used Zone IDs to produce index and zone mapping in OMX file</span>
+    <span class="n">zone_ids</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">orig_column</span><span class="p">])</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">dest_column</span><span class="p">])))</span>
+    <span class="n">num_zones</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zone_ids</span><span class="p">)</span>
+
+    <span class="c1"># Map zone id to zone index #</span>
+    <span class="n">zone_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">z</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">zone_ids</span><span class="p">))</span>
+
+    <span class="c1"># calculate omx index of entries in numpy array list</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;omx_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">zone_map</span><span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="n">orig_column</span><span class="p">]]</span> <span class="o">*</span> <span class="n">num_zones</span> <span class="o">+</span> <span class="n">zone_map</span><span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="n">dest_column</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="n">_omx_file</span> <span class="o">=</span> <span class="n">_omx</span><span class="o">.</span><span class="n">open_file</span><span class="p">(</span><span class="n">omx_filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">_omx_file</span><span class="o">.</span><span class="n">create_mapping</span><span class="p">(</span><span class="s2">&quot;zone_number&quot;</span><span class="p">,</span> <span class="n">zone_ids</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">_name</span><span class="p">,</span> <span class="n">_df_col</span> <span class="ow">in</span> <span class="n">matrix_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_zones</span><span class="p">,</span> <span class="n">num_zones</span><span class="p">))</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+                <span class="n">_array</span><span class="p">,</span>
+                <span class="n">df</span><span class="p">[</span><span class="s2">&quot;omx_idx&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+                <span class="n">df</span><span class="p">[</span><span class="n">_df_col</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
+            <span class="p">)</span>
+
+            <span class="n">_omx_file</span><span class="o">.</span><span class="n">create_matrix</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="n">_array</span><span class="p">)</span>
+
+            <span class="c1"># TODO add logging</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">_omx_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
 <h4 id="tm2py.tools.download_unzip" class="doc doc-heading">
 <code class="codehilite language-python"><span class="n">download_unzip</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">out_base_dir</span><span class="p">,</span> <span class="n">target_dir</span><span class="p">,</span> <span class="n">zip_filename</span><span class="o">=</span><span class="s1">&#39;test_data.zip&#39;</span><span class="p">)</span></code>
 
@@ -26049,7 +26205,7 @@ rr&rdquo;C:\Software\Slack\TravelModel_SlackWebhook.txt&rdquo; (if local)</p>
         <td><code>df</code></td>
         <td><code>pd.DataFrame</code></td>
         <td><p>dataframe to interpolate on, with ref points contained in column
-name per ref_col_name.  </p></td>
+name per ref_col_name.</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
@@ -26067,7 +26223,7 @@ name per ref_col_name.  </p></td>
       <tr>
         <td><code>ref_col_name</code></td>
         <td><code>str</code></td>
-        <td><p>column name to use for reference years. 
+        <td><p>column name to use for reference years.
 Defaults to &ldquo;ends_with&rdquo;.</p></td>
         <td><code>&#39;ends_with&#39;</code></td>
       </tr>
@@ -26077,18 +26233,18 @@ Defaults to &ldquo;ends_with&rdquo;.</p></td>
           <summary>Source code in <code>tm2py/tools.py</code></summary>
           <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">interpolate_dfs</span><span class="p">(</span>
     <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
-    <span class="n">ref_points</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">]],</span>
-    <span class="n">target_point</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">],</span>
+    <span class="n">ref_points</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+    <span class="n">target_point</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">ref_col_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ends_with&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Interpolate for the model year assuming linear growth between the reference years.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        df (pd.DataFrame): dataframe to interpolate on, with ref points contained in column</span>
-<span class="sd">            name per ref_col_name.  </span>
+<span class="sd">            name per ref_col_name.</span>
 <span class="sd">        ref_points (Collection[Union[float,int]]): reference years to interpolate between</span>
 <span class="sd">        target_point (Union[float,int]): target year</span>
-<span class="sd">        ref_col_name (str, optional): column name to use for reference years. </span>
+<span class="sd">        ref_col_name (str, optional): column name to use for reference years.</span>
 <span class="sd">            Defaults to &quot;ends_with&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ref_col_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ends_with&quot;</span><span class="p">]:</span>
@@ -26101,26 +26257,31 @@ Defaults to &ldquo;ends_with&rdquo;.</p></td>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">assert</span> <span class="n">_start_point</span> <span class="o">&lt;=</span> <span class="n">target_point</span> <span class="o">&lt;=</span> <span class="n">_end_point</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Target Point: </span><span class="si">{</span><span class="n">target_point</span><span class="si">}</span><span class="s2"> not within range of </span><span class="se">\</span>
-<span class="s2">            Reference Points: </span><span class="si">{</span><span class="n">ref_points</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Target Point: </span><span class="si">{</span><span class="n">target_point</span><span class="si">}</span><span class="s2"> not within range of </span><span class="se">\</span>
+<span class="s2">            Reference Points: </span><span class="si">{</span><span class="n">ref_points</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
 
-    <span class="n">_start_ref_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">_start_point</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">_end_ref_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">_end_point</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">_start_ref_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_start_point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">_end_ref_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_end_point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">_start_ref_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">_end_ref_df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_start_point</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">_end_point</span><span class="si">}</span><span class="s2"> have different number of columns:</span><span class="se">\n\</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_start_point</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">_end_point</span><span class="si">}</span><span class="s2"> have different number of columns:</span><span class="se">\n\</span>
 <span class="s2">           </span><span class="si">{</span><span class="n">_start_point</span><span class="si">}</span><span class="s2"> Columns: </span><span class="si">{</span><span class="n">_start_ref_df</span><span class="o">.</span><span class="n">columns</span><span class="si">}</span><span class="se">\n\</span>
 <span class="s2">           </span><span class="si">{</span><span class="n">_end_point</span><span class="si">}</span><span class="s2"> Columns: </span><span class="si">{</span><span class="n">_end_ref_df</span><span class="o">.</span><span class="n">columns</span><span class="si">}</span><span class="se">\</span>
-<span class="s2">        &quot;</span><span class="p">)</span>
+<span class="s2">        &quot;</span>
+        <span class="p">)</span>
 
-    <span class="n">_start_ref_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">_start_point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">_start_ref_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+        <span class="n">columns</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">_start_point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
     <span class="n">_end_ref_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">_end_point</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">_scale_factor</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">target_point</span> <span class="o">-</span> <span class="n">_start_point</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">_end_point</span> <span class="o">-</span> <span class="n">_start_point</span><span class="p">)</span>
 
-    <span class="n">interpolated_df</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">_scale_factor</span><span class="p">)</span> <span class="o">*</span> <span class="n">_start_ref_df</span>\
-        <span class="o">+</span> <span class="n">_scale_factor</span> <span class="o">*</span> <span class="n">_end_ref_df</span>
+    <span class="n">interpolated_df</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">_scale_factor</span><span class="p">)</span> <span class="o">*</span> <span class="n">_start_ref_df</span> <span class="o">+</span> <span class="n">_scale_factor</span> <span class="o">*</span> <span class="n">_end_ref_df</span>
 
     <span class="k">return</span> <span class="n">interpolated_df</span>
 </code></pre></div>
@@ -26265,7 +26426,7 @@ Defaults to &ldquo;ends_with&rdquo;.</p></td>
   <tbody>
       <tr>
         <td><code>commands</code></td>
-        <td><code>List[str]</code></td>
+        <td><code>Collection[str]</code></td>
         <td><p>list of one or more commands to execute</p></td>
         <td><em>required</em></td>
       </tr>
@@ -26279,7 +26440,7 @@ Defaults to &ldquo;ends_with&rdquo;.</p></td>
 </table>
         <details class="quote">
           <summary>Source code in <code>tm2py/tools.py</code></summary>
-          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">run_process</span><span class="p">(</span><span class="n">commands</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">run_process</span><span class="p">(</span><span class="n">commands</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Run system level commands as blocking process and log output and error messages.</span>
 
 <span class="sd">    Args:</span>
