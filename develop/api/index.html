@@ -456,6 +456,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tm2py.controller.RunController.validate_inputs" class="md-nav__link">
+    validate_inputs()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1454,6 +1461,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tm2py.components.network.highway.highway_assign.HighwayAssignment.validate_inputs" class="md-nav__link">
+    validate_inputs()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1630,6 +1644,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tm2py.components.network.highway.highway_maz.AssignMAZSPDemand.validate_inputs" class="md-nav__link">
+    validate_inputs()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1653,6 +1674,13 @@
           <li class="md-nav__item">
   <a href="#tm2py.components.network.highway.highway_maz.SkimMAZCosts.run" class="md-nav__link">
     run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tm2py.components.network.highway.highway_maz.SkimMAZCosts.validate_inputs" class="md-nav__link">
+    validate_inputs()
   </a>
   
 </li>
@@ -2946,6 +2974,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tm2py.controller.RunController.validate_inputs" class="md-nav__link">
+    validate_inputs()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3944,6 +3979,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tm2py.components.network.highway.highway_assign.HighwayAssignment.validate_inputs" class="md-nav__link">
+    validate_inputs()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4120,6 +4162,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#tm2py.components.network.highway.highway_maz.AssignMAZSPDemand.validate_inputs" class="md-nav__link">
+    validate_inputs()
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4143,6 +4192,13 @@
           <li class="md-nav__item">
   <a href="#tm2py.components.network.highway.highway_maz.SkimMAZCosts.run" class="md-nav__link">
     run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tm2py.components.network.highway.highway_maz.SkimMAZCosts.validate_inputs" class="md-nav__link">
+    validate_inputs()
   </a>
   
 </li>
@@ -5347,6 +5403,11 @@ component: current running (or last started) Component object</p>
             <span class="n">rel_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Validate inputs files are correct, raise if an error is found.&quot;&quot;&quot;</span>
+        <span class="c1"># TODO</span>
+        <span class="k">pass</span>
+
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Main interface to run model.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_iteration</span> <span class="o">=</span> <span class="kc">None</span>
@@ -5704,6 +5765,34 @@ to the directory of the first config_file.</p></td>
         <span class="bp">self</span><span class="o">.</span><span class="n">_component</span> <span class="o">=</span> <span class="n">component</span>
         <span class="n">component</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">completed_components</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">iteration</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">component</span><span class="p">))</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h5 id="tm2py.controller.RunController.validate_inputs" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#tm2py.controller.RunController.validate_inputs" class="headerlink" title="Permanent link"> ¶</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>Validate inputs files are correct, raise if an error is found.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>tm2py/controller.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate inputs files are correct, raise if an error is found.&quot;&quot;&quot;</span>
+    <span class="c1"># TODO</span>
+    <span class="k">pass</span>
 </code></pre></div>
         </details>
     </div>
@@ -12606,6 +12695,11 @@ HighwayAssignment            (<a class="autorefs autorefs-internal" title="tm2py
         <span class="bp">self</span><span class="o">.</span><span class="n">_matrix_cache</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_skim_matrices</span> <span class="o">=</span> <span class="p">[]</span>
 
+    <span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Validate inputs files are correct, raise if an error is found.&quot;&quot;&quot;</span>
+        <span class="c1"># TODO</span>
+        <span class="k">pass</span>
+
     <span class="nd">@LogStartEnd</span><span class="p">(</span><span class="s2">&quot;Highway assignment and skims&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s2">&quot;STATUS&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run highway assignment.&quot;&quot;&quot;</span>
@@ -12966,6 +13060,34 @@ HighwayAssignment            (<a class="autorefs autorefs-internal" title="tm2py
             <span class="bp">self</span><span class="o">.</span><span class="n">_export_skims</span><span class="p">(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug_enabled</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_log_debug_report</span><span class="p">(</span><span class="n">scenario</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h5 id="tm2py.components.network.highway.highway_assign.HighwayAssignment.validate_inputs" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#tm2py.components.network.highway.highway_assign.HighwayAssignment.validate_inputs" class="headerlink" title="Permanent link"> ¶</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>Validate inputs files are correct, raise if an error is found.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>tm2py/components/network/highway/highway_assign.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate inputs files are correct, raise if an error is found.&quot;&quot;&quot;</span>
+    <span class="c1"># TODO</span>
+    <span class="k">pass</span>
 </code></pre></div>
         </details>
     </div>
@@ -14384,6 +14506,11 @@ and assigns flow.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_root_index</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_leaf_index</span> <span class="o">=</span> <span class="kc">None</span>
 
+    <span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Validate inputs files are correct, raise if an error is found.&quot;&quot;&quot;</span>
+        <span class="c1"># TODO</span>
+        <span class="k">pass</span>
+
     <span class="nd">@LogStartEnd</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run MAZ-to-MAZ shortest path assignment.&quot;&quot;&quot;</span>
@@ -15036,6 +15163,34 @@ and assigns flow.</p>
 
 
 
+  <div class="doc doc-object doc-method">
+
+
+
+<h5 id="tm2py.components.network.highway.highway_maz.AssignMAZSPDemand.validate_inputs" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#tm2py.components.network.highway.highway_maz.AssignMAZSPDemand.validate_inputs" class="headerlink" title="Permanent link"> ¶</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>Validate inputs files are correct, raise if an error is found.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>tm2py/components/network/highway/highway_maz.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate inputs files are correct, raise if an error is found.&quot;&quot;&quot;</span>
+    <span class="c1"># TODO</span>
+    <span class="k">pass</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
 
 
   </div>
@@ -15077,6 +15232,11 @@ SkimMAZCosts            (<a class="autorefs autorefs-internal" title="tm2py.comp
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">controller</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_scenario</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_network</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Validate inputs files are correct, raise if an error is found.&quot;&quot;&quot;</span>
+        <span class="c1"># TODO</span>
+        <span class="k">pass</span>
 
     <span class="nd">@LogStartEnd</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -15434,6 +15594,34 @@ using the excluded_links.</p>
                 <span class="k">continue</span>
             <span class="n">sp_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_shortest_path</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_export_results</span><span class="p">(</span><span class="n">sp_values</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h5 id="tm2py.components.network.highway.highway_maz.SkimMAZCosts.validate_inputs" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#tm2py.components.network.highway.highway_maz.SkimMAZCosts.validate_inputs" class="headerlink" title="Permanent link"> ¶</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>Validate inputs files are correct, raise if an error is found.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>tm2py/components/network/highway/highway_maz.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">validate_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate inputs files are correct, raise if an error is found.&quot;&quot;&quot;</span>
+    <span class="c1"># TODO</span>
+    <span class="k">pass</span>
 </code></pre></div>
         </details>
     </div>
@@ -16743,7 +16931,7 @@ EmmeManager        </code>
   <tbody>
       <tr>
         <td><code>emmebank</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140663410817056&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140052047591312&#39;&gt;</code></td>
         <td><p>the Emmebank object to change the dimensions</p></td>
         <td><em>required</em></td>
       </tr>
@@ -16852,13 +17040,13 @@ EmmeManager        </code>
       </tr>
       <tr>
         <td><code>src</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140663410857152&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140052047619408&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140052047631408&#39;&gt;]</code></td>
         <td><p>source Emme scenario or network to load values from</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>dst</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140663410857152&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140052047619408&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140052047631408&#39;&gt;]</code></td>
         <td><p>destination Emme scenario or network to save values to</p></td>
         <td><em>required</em></td>
       </tr>
@@ -16977,7 +17165,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140663410933472&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140052047707728&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -17050,7 +17238,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140663410817056&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140052047591312&#39;&gt;</code></td>
       <td><p>Emmebank object, see Emme API Reference, Database section for details.</p></td>
     </tr>
   </tbody>
@@ -17110,7 +17298,7 @@ and network.set_attribute_values.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140052047619408&#39;&gt;</code></td>
         <td><p>Emme scenario object, see Emme API reference</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17132,7 +17320,7 @@ and network.set_attribute_values.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140663410857152&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140052047631408&#39;&gt;</code></td>
       <td><p>Emme Network object, see Emme API Reference, Network section for details.</p></td>
     </tr>
   </tbody>
@@ -17371,7 +17559,7 @@ first.</p>
   <tbody>
       <tr>
         <td><code>emme_project</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140663410933472&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140052047707728&#39;&gt;</code></td>
         <td><p>open &lsquo;Emme Desktop&rsquo; application (inro.emme.desktop.app)</p></td>
         <td><code>None</code></td>
       </tr>
@@ -17387,7 +17575,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;140663410885248&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;140052047659504&#39;&gt;</code></td>
       <td><p>Emme Modeller object, see Emme API Reference, Modeller section for details.</p></td>
     </tr>
   </tbody>
@@ -17472,7 +17660,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140663410933472&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140052047707728&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -17549,7 +17737,7 @@ Emme API.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140052047619408&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17928,7 +18116,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140663410833152&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140052047607408&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -18003,7 +18191,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140663410833152&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140052047607408&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -18846,7 +19034,7 @@ Supports &ldquo;with&rdquo; statement.</p>
   <tbody>
       <tr>
         <td><code>matrices</code></td>
-        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140663410833152&#39;&gt;, str]]</code></td>
+        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140052047607408&#39;&gt;, str]]</code></td>
         <td><p>list of Emme matrix objects or names / IDs
 of matrices in Emmebank, or dictionary of
 name: Emme matrix object/ Emme matrix ID</p></td>
@@ -18905,7 +19093,7 @@ name: Emme matrix object/ Emme matrix ID</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140663410833152&#39;&gt;]</code></td>
+        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140052047607408&#39;&gt;]</code></td>
         <td><p>Emme matrix object or name / ID of matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -19039,7 +19227,7 @@ aggregation options, and mostly running link expression calculations</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140052047619408&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
