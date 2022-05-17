@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://bayareametro.github.io/tm2py/develop/api/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.15">
     
     
       
@@ -19,7 +19,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.3de6f41f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.c382b1dc.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.cc9b2e1e.min.css">
@@ -438,6 +438,13 @@
           <li class="md-nav__item">
   <a href="#tm2py.controller.RunController.component" class="md-nav__link">
     component()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tm2py.controller.RunController.get_abs_path" class="md-nav__link">
+    get_abs_path()
   </a>
   
 </li>
@@ -1029,13 +1036,6 @@
           <li class="md-nav__item">
   <a href="#tm2py.components.component.Component.__init__" class="md-nav__link">
     __init__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tm2py.components.component.Component.get_abs_path" class="md-nav__link">
-    get_abs_path()
   </a>
   
 </li>
@@ -2933,6 +2933,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#tm2py.controller.RunController.get_abs_path" class="md-nav__link">
+    get_abs_path()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tm2py.controller.RunController.run" class="md-nav__link">
     run()
   </a>
@@ -3519,13 +3526,6 @@
           <li class="md-nav__item">
   <a href="#tm2py.components.component.Component.__init__" class="md-nav__link">
     __init__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#tm2py.components.component.Component.get_abs_path" class="md-nav__link">
-    get_abs_path()
   </a>
   
 </li>
@@ -5264,22 +5264,23 @@ component: current running (or last started) Component object</p>
 <span class="sd">        _queued_components: list of iteration, name, Component</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Constructor for the RunController.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">config_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Collection</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">run_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor for RunController class.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            config_file (Union[List[str], str], optional): Configuration TOML filenames or list</span>
-<span class="sd">                of files. Defaults to None.</span>
-<span class="sd">            run_dir (str, optional): Model run base directory. Defaults to where first listed</span>
-<span class="sd">                config file is located.</span>
+<span class="sd">            config_file: Single or list of config file locations as strings or Path objects.</span>
+<span class="sd">                Defaults to None.</span>
+<span class="sd">            run_dir: Model run directory as a Path object or string. If not provided, defaults</span>
+<span class="sd">                to the directory of the first config_file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="n">config_file</span> <span class="o">=</span> <span class="p">[</span><span class="n">config_file</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">run_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">config_file</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">run_dir</span><span class="p">):</span>
-            <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">run_dir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_run_dir</span> <span class="o">=</span> <span class="n">run_dir</span>
+            <span class="n">run_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">config_file</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">run_dir</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="o">.</span><span class="n">load_toml</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
         <span class="c1"># NOTE: Logger opens log file on __enter__ (in run), not ready for logging yet</span>
@@ -5299,8 +5300,8 @@ component: current running (or last started) Component object</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_queued_components</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">run_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;The root run directory of the model run.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">run_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The root run directory of the model run&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_dir</span>
 
     <span class="nd">@property</span>
@@ -5339,6 +5340,12 @@ component: current running (or last started) Component object</p>
         <span class="p">)</span>
         <span class="c1"># Initialize Modeller to use Emme assignment tools and other APIs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emme_manager</span><span class="o">.</span><span class="n">modeller</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the absolute path from the root run directory given a relative path.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+            <span class="n">rel_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Main interface to run model.&quot;&quot;&quot;</span>
@@ -5482,7 +5489,7 @@ component: current running (or last started) Component object</p>
 
 
 <h5 id="tm2py.controller.RunController.run_dir" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">run_dir</span><span class="p">:</span> <span class="nb">str</span></code>
+<code class="codehilite language-python"><span class="n">run_dir</span><span class="p">:</span> <span class="n">Path</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-property"><code>property</code></small>
@@ -5493,7 +5500,7 @@ component: current running (or last started) Component object</p>
 
     <div class="doc doc-contents ">
 
-      <p>The root run directory of the model run.</p>
+      <p>The root run directory of the model run</p>
     </div>
 
   </div>
@@ -5541,7 +5548,7 @@ component: current running (or last started) Component object</p>
 
     <div class="doc doc-contents ">
 
-      <p>Constructor for the RunController.</p>
+      <p>Constructor for RunController class.</p>
 
 <p><strong>Parameters:</strong></p>
 <table>
@@ -5556,38 +5563,39 @@ component: current running (or last started) Component object</p>
   <tbody>
       <tr>
         <td><code>config_file</code></td>
-        <td><code>Union[List[str], str]</code></td>
-        <td><p>Configuration TOML filenames or list
-of files. Defaults to None.</p></td>
+        <td><code>Union[Collection[Union[str, pathlib.Path]], str, pathlib.Path]</code></td>
+        <td><p>Single or list of config file locations as strings or Path objects.
+Defaults to None.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
         <td><code>run_dir</code></td>
-        <td><code>str</code></td>
-        <td><p>Model run base directory. Defaults to where first listed
-config file is located.</p></td>
+        <td><code>Union[pathlib.Path, str]</code></td>
+        <td><p>Model run directory as a Path object or string. If not provided, defaults
+to the directory of the first config_file.</p></td>
         <td><code>None</code></td>
       </tr>
   </tbody>
 </table>
         <details class="quote">
           <summary>Source code in <code>tm2py/controller.py</code></summary>
-          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">run_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Constructor for the RunController.</span>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">config_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Collection</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">run_dir</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Constructor for RunController class.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        config_file (Union[List[str], str], optional): Configuration TOML filenames or list</span>
-<span class="sd">            of files. Defaults to None.</span>
-<span class="sd">        run_dir (str, optional): Model run base directory. Defaults to where first listed</span>
-<span class="sd">            config file is located.</span>
+<span class="sd">        config_file: Single or list of config file locations as strings or Path objects.</span>
+<span class="sd">            Defaults to None.</span>
+<span class="sd">        run_dir: Model run directory as a Path object or string. If not provided, defaults</span>
+<span class="sd">            to the directory of the first config_file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">config_file</span> <span class="o">=</span> <span class="p">[</span><span class="n">config_file</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">run_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">config_file</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">run_dir</span><span class="p">):</span>
-        <span class="n">run_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">run_dir</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_run_dir</span> <span class="o">=</span> <span class="n">run_dir</span>
+        <span class="n">run_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">config_file</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_run_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">run_dir</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="o">.</span><span class="n">load_toml</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
     <span class="c1"># NOTE: Logger opens log file on __enter__ (in run), not ready for logging yet</span>
@@ -5632,6 +5640,35 @@ config file is located.</p></td>
           <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">component</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Component</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Current component of model.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_component</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h5 id="tm2py.controller.RunController.get_abs_path" class="doc doc-heading">
+<code class="codehilite language-python"><span class="n">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span></code>
+
+
+<a href="#tm2py.controller.RunController.get_abs_path" class="headerlink" title="Permanent link"> ¶</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the absolute path from the root run directory given a relative path.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>tm2py/controller.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get the absolute path from the root run directory given a relative path.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rel_path</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+        <span class="n">rel_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">rel_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -5884,8 +5921,8 @@ AirPassengerConfig            (<a class="autorefs autorefs-internal" title="tm2p
           <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">AirPassengerConfig</span><span class="p">(</span><span class="n">ConfigItem</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Air passenger model parameters.&quot;&quot;&quot;</span>
 
-    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">input_demand_folder</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">input_demand_folder</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
     <span class="n">reference_start_year</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">reference_end_year</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">demand_aggregation</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">AirPassengerDemandAggregationConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
@@ -6185,22 +6222,28 @@ Configuration            (<a class="autorefs autorefs-internal" title="tm2py.con
     <span class="n">logging</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LoggingConfig</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">LoggingConfig</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">load_toml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
-        <span class="sd">&quot;&quot;&quot;Load configuration from .toml files(s).</span>
+    <span class="k">def</span> <span class="nf">load_toml</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">toml_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Collection</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Configuration&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load configuration from .toml files(s)</span>
 
 <span class="sd">        Normally the config is split into a scenario_config.toml file and a</span>
 <span class="sd">        model_config.toml file.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            path: a valid system path to a TOML format config file or list of paths</span>
+<span class="sd">            toml_path: a valid system path string or Path object to a TOML format config file or</span>
+<span class="sd">                list of paths of path objects to a set of TOML files.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A Configuration object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">path_item</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">toml_path</span><span class="p">,</span> <span class="n">Collection</span><span class="p">):</span>
+            <span class="n">toml_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">toml_path</span><span class="p">]</span>
+        <span class="n">toml_path</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="n">toml_path</span><span class="p">))</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">toml_path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">path_item</span> <span class="ow">in</span> <span class="n">toml_path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
             <span class="n">_merge_dicts</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">path_item</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 
@@ -6276,22 +6319,28 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
     <span class="n">logging</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LoggingConfig</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">LoggingConfig</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">load_toml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
-        <span class="sd">&quot;&quot;&quot;Load configuration from .toml files(s).</span>
+    <span class="k">def</span> <span class="nf">load_toml</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">toml_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Collection</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Configuration&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load configuration from .toml files(s)</span>
 
 <span class="sd">        Normally the config is split into a scenario_config.toml file and a</span>
 <span class="sd">        model_config.toml file.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            path: a valid system path to a TOML format config file or list of paths</span>
+<span class="sd">            toml_path: a valid system path string or Path object to a TOML format config file or</span>
+<span class="sd">                list of paths of path objects to a set of TOML files.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            A Configuration object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">for</span> <span class="n">path_item</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">toml_path</span><span class="p">,</span> <span class="n">Collection</span><span class="p">):</span>
+            <span class="n">toml_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">toml_path</span><span class="p">]</span>
+        <span class="n">toml_path</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="n">toml_path</span><span class="p">))</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">toml_path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">path_item</span> <span class="ow">in</span> <span class="n">toml_path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
             <span class="n">_merge_dicts</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">path_item</span><span class="p">))</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 
@@ -6394,7 +6443,7 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
 
 
 <h5 id="tm2py.config.Configuration.load_toml" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">load_toml</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
+<code class="codehilite language-python"><span class="n">load_toml</span><span class="p">(</span><span class="n">toml_path</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
@@ -6404,7 +6453,7 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
 
     <div class="doc doc-contents ">
 
-      <p>Load configuration from .toml files(s).</p>
+      <p>Load configuration from .toml files(s)</p>
 <p>Normally the config is split into a scenario_config.toml file and a
 model_config.toml file.</p>
 
@@ -6420,9 +6469,10 @@ model_config.toml file.</p>
   </thead>
   <tbody>
       <tr>
-        <td><code>path</code></td>
-        <td><code>Union[str, List[str]]</code></td>
-        <td><p>a valid system path to a TOML format config file or list of paths</p></td>
+        <td><code>toml_path</code></td>
+        <td><code>Union[Collection[Union[str, pathlib.Path]], str, pathlib.Path]</code></td>
+        <td><p>a valid system path string or Path object to a TOML format config file or
+list of paths of path objects to a set of TOML files.</p></td>
         <td><em>required</em></td>
       </tr>
   </tbody>
@@ -6437,7 +6487,7 @@ model_config.toml file.</p>
   </thead>
   <tbody>
     <tr>
-      <td></td>
+      <td><code>Configuration</code></td>
       <td><p>A Configuration object</p></td>
     </tr>
   </tbody>
@@ -6445,22 +6495,28 @@ model_config.toml file.</p>
         <details class="quote">
           <summary>Source code in <code>tm2py/config.py</code></summary>
           <div class="codehilite"><pre><span></span><code><span class="nd">@classmethod</span>
-<span class="k">def</span> <span class="nf">load_toml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
-    <span class="sd">&quot;&quot;&quot;Load configuration from .toml files(s).</span>
+<span class="k">def</span> <span class="nf">load_toml</span><span class="p">(</span>
+    <span class="bp">cls</span><span class="p">,</span>
+    <span class="n">toml_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Collection</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]],</span> <span class="nb">str</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Configuration&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Load configuration from .toml files(s)</span>
 
 <span class="sd">    Normally the config is split into a scenario_config.toml file and a</span>
 <span class="sd">    model_config.toml file.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        path: a valid system path to a TOML format config file or list of paths</span>
+<span class="sd">        toml_path: a valid system path string or Path object to a TOML format config file or</span>
+<span class="sd">            list of paths of path objects to a set of TOML files.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A Configuration object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">path_item</span> <span class="ow">in</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">toml_path</span><span class="p">,</span> <span class="n">Collection</span><span class="p">):</span>
+        <span class="n">toml_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">toml_path</span><span class="p">]</span>
+    <span class="n">toml_path</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="n">toml_path</span><span class="p">))</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">toml_path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">path_item</span> <span class="ow">in</span> <span class="n">toml_path</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
         <span class="n">_merge_dicts</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">_load_toml</span><span class="p">(</span><span class="n">path_item</span><span class="p">))</span>
     <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div>
@@ -6615,7 +6671,7 @@ EmmeConfig            (<a class="autorefs autorefs-internal" title="tm2py.config
 <p class="admonition-title">scenario ID to use for all day</p>
 <p>(initial imported) scenario with all time period data</p>
 </div>
-<p>project_path: relative path to Emme desktop project (.emp)
+<p>project_path: relative path from run_dir to Emme desktop project (.emp)
 highway_database_path: relative path to highway Emmebank
 active_database_paths: list of relative paths to active mode Emmebanks
 transit_database_path: relative path to transit Emmebank</p>
@@ -6635,7 +6691,7 @@ logical processors) to leave capacity for background / other tasks.</p>
 <span class="sd">    Properties:</span>
 <span class="sd">        all_day_scenario_id: scenario ID to use for all day</span>
 <span class="sd">            (initial imported) scenario with all time period data</span>
-<span class="sd">        project_path: relative path to Emme desktop project (.emp)</span>
+<span class="sd">        project_path: relative path from run_dir to Emme desktop project (.emp)</span>
 <span class="sd">        highway_database_path: relative path to highway Emmebank</span>
 <span class="sd">        active_database_paths: list of relative paths to active mode Emmebanks</span>
 <span class="sd">        transit_database_path: relative path to transit Emmebank</span>
@@ -6646,11 +6702,11 @@ logical processors) to leave capacity for background / other tasks.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">all_day_scenario_id</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">project_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">highway_database_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">active_database_paths</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-    <span class="n">transit_database_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">num_processors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;(?i)^MAX$|^MAX[\s]*-[\s]*[\d]+$|^[\d]+$&quot;</span><span class="p">)</span>
+    <span class="n">project_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">highway_database_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">active_database_paths</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">transit_database_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">num_processors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^MAX$|^MAX-\d+$|^\d+$&quot;</span><span class="p">)</span>
 </code></pre></div>
         </details>
 
@@ -7168,7 +7224,7 @@ tolls: input toll specification, see HighwayTollsConfig</p>
     <span class="n">relative_gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">area_type_buffer_dist_miles</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">output_skim_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">output_skim_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">tolls</span><span class="p">:</span> <span class="n">HighwayTollsConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">maz_to_maz</span><span class="p">:</span> <span class="n">HighwayMazToMazConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">classes</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">HighwayClassConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
@@ -7314,7 +7370,7 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
     <span class="n">relative_gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">area_type_buffer_dist_miles</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">output_skim_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">output_skim_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">tolls</span><span class="p">:</span> <span class="n">HighwayTollsConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">maz_to_maz</span><span class="p">:</span> <span class="n">HighwayMazToMazConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">classes</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">HighwayClassConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
@@ -7888,10 +7944,10 @@ e.g.: auto_{period}<em>MAZ_AUTO</em>{number}_{period}.omx</p>
     <span class="n">operating_cost_per_mile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_skim_cost</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">excluded_links</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
-    <span class="n">demand_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">demand_county_groups</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DemandCountyGroupConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">skim_period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
-    <span class="n">output_skim_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">output_skim_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
 
     <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;demand_county_groups&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">unique_group_numbers</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -7973,10 +8029,10 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
     <span class="n">operating_cost_per_mile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_skim_cost</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">excluded_links</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
-    <span class="n">demand_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">demand_county_groups</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DemandCountyGroupConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">skim_period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
-    <span class="n">output_skim_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">output_skim_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
 
     <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;demand_county_groups&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">unique_group_numbers</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -8173,7 +8229,7 @@ valid keywords for:
 <span class="sd">                skims: &quot;bridgetoll_{vehicle}&quot;, &quot;valuetoll_{vehicle}&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">tollbooth_start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">src_vehicle_group_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">dst_vehicle_group_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
@@ -8248,7 +8304,7 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
 <span class="sd">                skims: &quot;bridgetoll_{vehicle}&quot;, &quot;valuetoll_{vehicle}&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">tollbooth_start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">src_vehicle_group_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">dst_vehicle_group_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
@@ -8416,8 +8472,8 @@ HouseholdConfig            (<a class="autorefs autorefs-internal" title="tm2py.c
           <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">HouseholdConfig</span><span class="p">(</span><span class="n">ConfigItem</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Household (residents) model parameters.&quot;&quot;&quot;</span>
 
-    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">transit_demand_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">transit_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
 </code></pre></div>
         </details>
 
@@ -8479,8 +8535,8 @@ InternalExternalConfig            (<a class="autorefs autorefs-internal" title="
           <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">InternalExternalConfig</span><span class="p">(</span><span class="n">ConfigItem</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Internal &lt;-&gt; External model parameters.&quot;&quot;&quot;</span>
 
-    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">input_demand_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">input_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
     <span class="n">reference_year</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">toll_choice_time_coefficient</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">value_of_time</span><span class="p">:</span> <span class="nb">float</span>
@@ -9113,7 +9169,7 @@ ScenarioConfig            (<a class="autorefs autorefs-internal" title="tm2py.co
 <span class="sd">        year: model year, must be at least 2005</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">maz_landuse_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">maz_landuse_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">2005</span><span class="p">)</span>
     <span class="n">verify</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div>
@@ -9279,15 +9335,15 @@ TransitConfig            (<a class="autorefs autorefs-internal" title="tm2py.con
     <span class="n">initial_boarding_penalty</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">transfer_boarding_penalty</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">max_transfers</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">output_skim_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">fares_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">fare_matrix_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">output_skim_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">fares_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">fare_matrix_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
     <span class="n">fare_max_transfer_distance_miles</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">use_fares</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">override_connector_times</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">input_connector_access_times_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">input_connector_egress_times_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">output_stop_usage_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">input_connector_access_times_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">input_connector_egress_times_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">output_stop_usage_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
         </details>
 
@@ -9731,9 +9787,9 @@ TruckConfig            (<a class="autorefs autorefs-internal" title="tm2py.confi
           <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">TruckConfig</span><span class="p">(</span><span class="n">ConfigItem</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Truck model parameters.&quot;&quot;&quot;</span>
 
-    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">k_factors_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">friction_factors_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">k_factors_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">friction_factors_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
     <span class="n">value_of_time</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">operating_cost_per_mile</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">toll_choice_time_coefficient</span><span class="p">:</span> <span class="nb">float</span>
@@ -9907,9 +9963,8 @@ def _step2(self):
         <span class="sd">&quot;&quot;&quot;Parent controller.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span>
 
-    <span class="k">def</span> <span class="nf">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the absolute path from the root run directory given a relative path.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">get_abs_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_emme_scenario</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emmebank_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">time_period</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EmmeScenario</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get the Emme scenario object from the Emmebank at emmebank_path for the time_period ID.</span>
@@ -10157,32 +10212,6 @@ def _step2(self):
 
   </div>
 
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h5 id="tm2py.components.component.Component.get_abs_path" class="doc doc-heading">
-<code class="codehilite language-python"><span class="n">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span></code>
-
-
-<a href="#tm2py.components.component.Component.get_abs_path" class="headerlink" title="Permanent link"> ¶</a></h5>
-
-    <div class="doc doc-contents ">
-
-      <p>Get the absolute path from the root run directory given a relative path.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>tm2py/components/component.py</code></summary>
-          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the absolute path from the root run directory given a relative path.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">run_dir</span><span class="p">,</span> <span class="n">rel_path</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
 
 
 
@@ -10649,10 +10678,16 @@ PrepareDemand            (<a class="autorefs autorefs-internal" title="tm2py.com
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_redim_demand</span><span class="p">(</span><span class="n">demand</span><span class="p">,</span> <span class="n">num_zones</span><span class="p">):</span>
         <span class="n">_shape</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">shape</span>
-        <span class="k">if</span> <span class="n">_shape</span> <span class="o">!=</span> <span class="p">(</span><span class="n">num_zones</span><span class="p">,</span> <span class="n">num_zones</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_shape</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">num_zones</span><span class="p">,</span> <span class="n">num_zones</span><span class="p">):</span>
             <span class="n">demand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
                 <span class="n">demand</span><span class="p">,</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_zones</span> <span class="o">-</span> <span class="n">_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_zones</span> <span class="o">-</span> <span class="n">_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
             <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_shape</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">num_zones</span><span class="p">,</span> <span class="n">num_zones</span><span class="p">):</span>
+            <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Provided demand matrix is larger (</span><span class="si">{</span><span class="n">_shape</span><span class="si">}</span><span class="s2">) than the </span><span class="se">\</span>
+<span class="s2">                specified number of zones: </span><span class="si">{</span><span class="n">num_zones</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
         <span class="k">return</span> <span class="n">demand</span>
 
     <span class="c1"># Disable too many arguments recommendation</span>
@@ -10828,6 +10863,7 @@ The demand is average using MSA with the current demand matrices
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Open combined demand OMX files from demand models and prepare for assignment.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emmebank_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">emme</span><span class="o">.</span><span class="n">highway_database_path</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_emmebank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">emme_manager</span><span class="o">.</span><span class="n">emmebank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_emmebank_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_create_zero_matrix</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period_names</span><span class="p">():</span>
@@ -10959,6 +10995,7 @@ The demand is average using MSA with the current demand matrices
           <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Open combined demand OMX files from demand models and prepare for assignment.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_emmebank_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_abs_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">emme</span><span class="o">.</span><span class="n">highway_database_path</span><span class="p">)</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">_emmebank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">emme_manager</span><span class="o">.</span><span class="n">emmebank</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_emmebank_path</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_create_zero_matrix</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_period_names</span><span class="p">():</span>
@@ -11043,8 +11080,8 @@ tm2py.config.HouseholdConfig            (<a class="autorefs autorefs-internal" t
           <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">HouseholdConfig</span><span class="p">(</span><span class="n">ConfigItem</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Household (residents) model parameters.&quot;&quot;&quot;</span>
 
-    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">transit_demand_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">transit_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
 </code></pre></div>
         </details>
 
@@ -11217,9 +11254,9 @@ tm2py.config.TruckConfig            (<a class="autorefs autorefs-internal" title
           <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">TruckConfig</span><span class="p">(</span><span class="n">ConfigItem</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Truck model parameters.&quot;&quot;&quot;</span>
 
-    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">k_factors_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">friction_factors_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">k_factors_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">friction_factors_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
     <span class="n">value_of_time</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">operating_cost_per_mile</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">toll_choice_time_coefficient</span><span class="p">:</span> <span class="nb">float</span>
@@ -11315,8 +11352,8 @@ tm2py.config.InternalExternalConfig            (<a class="autorefs autorefs-inte
           <div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">InternalExternalConfig</span><span class="p">(</span><span class="n">ConfigItem</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Internal &lt;-&gt; External model parameters.&quot;&quot;&quot;</span>
 
-    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">input_demand_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">highway_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">input_demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
     <span class="n">reference_year</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">toll_choice_time_coefficient</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">value_of_time</span><span class="p">:</span> <span class="nb">float</span>
@@ -13034,7 +13071,7 @@ tolls: input toll specification, see HighwayTollsConfig</p>
     <span class="n">relative_gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">area_type_buffer_dist_miles</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">output_skim_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">output_skim_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">tolls</span><span class="p">:</span> <span class="n">HighwayTollsConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">maz_to_maz</span><span class="p">:</span> <span class="n">HighwayMazToMazConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">classes</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">HighwayClassConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
@@ -13180,7 +13217,7 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
     <span class="n">relative_gap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">area_type_buffer_dist_miles</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">output_skim_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">output_skim_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">tolls</span><span class="p">:</span> <span class="n">HighwayTollsConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">maz_to_maz</span><span class="p">:</span> <span class="n">HighwayMazToMazConfig</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">classes</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">HighwayClassConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
@@ -13956,7 +13993,7 @@ valid keywords for:
 <span class="sd">                skims: &quot;bridgetoll_{vehicle}&quot;, &quot;valuetoll_{vehicle}&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">tollbooth_start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">src_vehicle_group_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">dst_vehicle_group_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
@@ -14031,7 +14068,7 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
 <span class="sd">                skims: &quot;bridgetoll_{vehicle}&quot;, &quot;valuetoll_{vehicle}&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">tollbooth_start_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">src_vehicle_group_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">dst_vehicle_group_names</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
@@ -15513,10 +15550,10 @@ e.g.: auto_{period}<em>MAZ_AUTO</em>{number}_{period}.omx</p>
     <span class="n">operating_cost_per_mile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_skim_cost</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">excluded_links</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
-    <span class="n">demand_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">demand_county_groups</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DemandCountyGroupConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">skim_period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
-    <span class="n">output_skim_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">output_skim_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
 
     <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;demand_county_groups&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">unique_group_numbers</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -15598,10 +15635,10 @@ __pydantic_model__            (<span title="pydantic.main.BaseModel">BaseModel</
     <span class="n">operating_cost_per_mile</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">max_skim_cost</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">excluded_links</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
-    <span class="n">demand_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">demand_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">demand_county_groups</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DemandCountyGroupConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
     <span class="n">skim_period</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
-    <span class="n">output_skim_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
+    <span class="n">output_skim_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">Field</span><span class="p">()</span>
 
     <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;demand_county_groups&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">unique_group_numbers</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -16198,15 +16235,15 @@ tm2py.config.TransitConfig            (<a class="autorefs autorefs-internal" tit
     <span class="n">initial_boarding_penalty</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">transfer_boarding_penalty</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">max_transfers</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">output_skim_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">fares_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">fare_matrix_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">output_skim_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">fares_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">fare_matrix_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
     <span class="n">fare_max_transfer_distance_miles</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">use_fares</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">override_connector_times</span><span class="p">:</span> <span class="nb">bool</span>
-    <span class="n">input_connector_access_times_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">input_connector_egress_times_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">output_stop_usage_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">input_connector_access_times_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">input_connector_egress_times_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">output_stop_usage_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
         </details>
 
@@ -16706,7 +16743,7 @@ EmmeManager        </code>
   <tbody>
       <tr>
         <td><code>emmebank</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;139836178556768&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140663410817056&#39;&gt;</code></td>
         <td><p>the Emmebank object to change the dimensions</p></td>
         <td><em>required</em></td>
       </tr>
@@ -16815,13 +16852,13 @@ EmmeManager        </code>
       </tr>
       <tr>
         <td><code>src</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139836178584864&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139836178596864&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140663410857152&#39;&gt;]</code></td>
         <td><p>source Emme scenario or network to load values from</p></td>
         <td><em>required</em></td>
       </tr>
       <tr>
         <td><code>dst</code></td>
-        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139836178584864&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139836178596864&#39;&gt;]</code></td>
+        <td><code>Union[&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;, &lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140663410857152&#39;&gt;]</code></td>
         <td><p>destination Emme scenario or network to save values to</p></td>
         <td><em>required</em></td>
       </tr>
@@ -16940,7 +16977,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139836178673184&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140663410933472&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -17013,7 +17050,7 @@ to using the src_names if not specified</p></td>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;139836178556768&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Emmebank&#39; id=&#39;140663410817056&#39;&gt;</code></td>
       <td><p>Emmebank object, see Emme API Reference, Database section for details.</p></td>
     </tr>
   </tbody>
@@ -17073,7 +17110,7 @@ and network.set_attribute_values.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139836178584864&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;</code></td>
         <td><p>Emme scenario object, see Emme API reference</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17095,7 +17132,7 @@ and network.set_attribute_values.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;139836178596864&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Network&#39; id=&#39;140663410857152&#39;&gt;</code></td>
       <td><p>Emme Network object, see Emme API Reference, Network section for details.</p></td>
     </tr>
   </tbody>
@@ -17334,7 +17371,7 @@ first.</p>
   <tbody>
       <tr>
         <td><code>emme_project</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139836178673184&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140663410933472&#39;&gt;</code></td>
         <td><p>open &lsquo;Emme Desktop&rsquo; application (inro.emme.desktop.app)</p></td>
         <td><code>None</code></td>
       </tr>
@@ -17350,7 +17387,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;139836178624960&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.Modeller&#39; id=&#39;140663410885248&#39;&gt;</code></td>
       <td><p>Emme Modeller object, see Emme API Reference, Modeller section for details.</p></td>
     </tr>
   </tbody>
@@ -17435,7 +17472,7 @@ first.</p>
   </thead>
   <tbody>
     <tr>
-      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;139836178673184&#39;&gt;</code></td>
+      <td><code>&lt;MagicMock name=&#39;mock.emme.desktop.app.App&#39; id=&#39;140663410933472&#39;&gt;</code></td>
       <td><p>Emme Desktop App object, see Emme API Reference, Desktop section for details.</p></td>
     </tr>
   </tbody>
@@ -17512,7 +17549,7 @@ Emme API.</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139836178584864&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17891,7 +17928,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139836178572864&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140663410833152&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -17966,7 +18003,7 @@ and matrix zone system</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139836178572864&#39;&gt;]</code></td>
+        <td><code>Union[str, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140663410833152&#39;&gt;]</code></td>
         <td><p>Emme matrix object or unique name / ID for Emme matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -18809,7 +18846,7 @@ Supports &ldquo;with&rdquo; statement.</p>
   <tbody>
       <tr>
         <td><code>matrices</code></td>
-        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139836178572864&#39;&gt;, str]]</code></td>
+        <td><code>List[Union[&lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140663410833152&#39;&gt;, str]]</code></td>
         <td><p>list of Emme matrix objects or names / IDs
 of matrices in Emmebank, or dictionary of
 name: Emme matrix object/ Emme matrix ID</p></td>
@@ -18868,7 +18905,7 @@ name: Emme matrix object/ Emme matrix ID</p></td>
   <tbody>
       <tr>
         <td><code>matrix</code></td>
-        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;139836178572864&#39;&gt;]</code></td>
+        <td><code>[&lt;class &#39;str&#39;&gt;, &lt;MagicMock name=&#39;mock.Matrix&#39; id=&#39;140663410833152&#39;&gt;]</code></td>
         <td><p>Emme matrix object or name / ID of matrix in Emmebank</p></td>
         <td><em>required</em></td>
       </tr>
@@ -19002,7 +19039,7 @@ aggregation options, and mostly running link expression calculations</p>
   <tbody>
       <tr>
         <td><code>scenario</code></td>
-        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;139836178584864&#39;&gt;</code></td>
+        <td><code>&lt;MagicMock name=&#39;mock.Scenario&#39; id=&#39;140663410845152&#39;&gt;</code></td>
         <td><p>Emme scenario object</p></td>
         <td><em>required</em></td>
       </tr>
@@ -19466,7 +19503,7 @@ tm2py.config.EmmeConfig            (<a class="autorefs autorefs-internal" title=
 <p class="admonition-title">scenario ID to use for all day</p>
 <p>(initial imported) scenario with all time period data</p>
 </div>
-<p>project_path: relative path to Emme desktop project (.emp)
+<p>project_path: relative path from run_dir to Emme desktop project (.emp)
 highway_database_path: relative path to highway Emmebank
 active_database_paths: list of relative paths to active mode Emmebanks
 transit_database_path: relative path to transit Emmebank</p>
@@ -19486,7 +19523,7 @@ logical processors) to leave capacity for background / other tasks.</p>
 <span class="sd">    Properties:</span>
 <span class="sd">        all_day_scenario_id: scenario ID to use for all day</span>
 <span class="sd">            (initial imported) scenario with all time period data</span>
-<span class="sd">        project_path: relative path to Emme desktop project (.emp)</span>
+<span class="sd">        project_path: relative path from run_dir to Emme desktop project (.emp)</span>
 <span class="sd">        highway_database_path: relative path to highway Emmebank</span>
 <span class="sd">        active_database_paths: list of relative paths to active mode Emmebanks</span>
 <span class="sd">        transit_database_path: relative path to transit Emmebank</span>
@@ -19497,11 +19534,11 @@ logical processors) to leave capacity for background / other tasks.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">all_day_scenario_id</span><span class="p">:</span> <span class="nb">int</span>
-    <span class="n">project_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">highway_database_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">active_database_paths</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
-    <span class="n">transit_database_path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">num_processors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;(?i)^MAX$|^MAX[\s]*-[\s]*[\d]+$|^[\d]+$&quot;</span><span class="p">)</span>
+    <span class="n">project_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">highway_database_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">active_database_paths</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">transit_database_path</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+    <span class="n">num_processors</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;^MAX$|^MAX-\d+$|^\d+$&quot;</span><span class="p">)</span>
 </code></pre></div>
         </details>
 
@@ -23174,7 +23211,7 @@ rr&rdquo;C:\Software\Slack\TravelModel_SlackWebhook.txt&rdquo; (if local)</p>
             <span class="k">return</span> <span class="n">max_processors</span>
         <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&quot;^[0-9]+$&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^MAX[\s]*-[\s]*&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^MAX[/s]*-[/s]*&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_processors</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> is an int or string as &#39;MAX-X&#39;&quot;</span><span class="p">)</span>
@@ -23433,7 +23470,7 @@ to _DEFAULT_EXAMPLE_URL.</p></td>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "content.code.annotate", "content.tabs.link", "navigation.indexes"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c2e1ee47.min.js"></script>
+      <script src="../assets/javascripts/bundle.a6c66575.min.js"></script>
       
         <script src="https://unpkg.com/mermaid@8.5.0/dist/mermaid.min.js"></script>
       
