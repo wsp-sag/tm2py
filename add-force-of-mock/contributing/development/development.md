@@ -160,7 +160,7 @@ Confirm tests run:
     If you have Emme installed but want to force running the tests with the Mock:
 
     ```sh
-    pytest -inro mock
+    pytest --inro mock
     ```
 
 ### Update/address other failing tests
@@ -258,14 +258,9 @@ logger.info()
 ```
 
 Additional arguments:
-
-- Add a timestamp: `time=True`
 - Indent the message: `indent=True`
 
-Just log the time – useful for doing performance baselineing: `logger.log_time(, level=)`
-
 Group log messages together:
-
 - Using a context: `logger.log_start_end()`
 - Using a decorator:
 

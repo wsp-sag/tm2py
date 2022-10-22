@@ -2,47 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/api/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/architecture/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/contributing/development/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/contributing/documentation/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/examples/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/examples/configuration/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/examples/restart_model/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bayareametro.github.io/tm2py/add-force-of-mock/examples/run_model/</loc>
-         <lastmod>2022-05-13</lastmod>
+         <lastmod>2022-10-22</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
